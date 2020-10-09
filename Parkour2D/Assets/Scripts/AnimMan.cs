@@ -1,0 +1,16 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+// 存放所有的动画
+public class AnimMan : MonoBehaviour
+{
+    public static AnimMan manager = null;
+
+    private void Awake() {
+        if (manager == null) {
+            manager = this;
+        } else if (manager != this) {
+            Destroy(gameObject);
+        }
+    }
+}
