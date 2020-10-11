@@ -6,6 +6,7 @@ public class AudioMan : MonoBehaviour
 {
     public static AudioMan manager = null;
     public AudioSource playerJumpAudio;
+    public AudioSource gameOverAudio;
 
     private void Awake() {
         if (manager == null) {
@@ -17,5 +18,9 @@ public class AudioMan : MonoBehaviour
 
     public void PlayPlayerJumpAudio() {
         playerJumpAudio.Play();
+    }
+
+    public void PlayGameOverAudio() {
+        gameOverAudio.Play();
     }
 }

@@ -42,6 +42,13 @@ public class PlayerCtr : MonoBehaviour {
 
         if (collision.collider.tag == "Border") {
             GameCtr.manager.GameOver();
+        }    
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.tag == "Coin") {
+            collision.gameObject.SetActive(false);
+            GameCtr.manager.coinNum++;
         }
     }
 }

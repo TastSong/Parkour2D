@@ -20,6 +20,14 @@ public class GroundItem : MonoBehaviour
         int rightNum = random.Next(0, rightPlatformNum);
 
         for (int i = 0; i < leftPlatformNum; i++) {
+            leftPlatforms[i].SetActive(false);
+        }
+
+        for (int i = 0; i < rightPlatformNum; i++) {
+            rightPlatforms[i].SetActive(false);
+        }
+
+        for (int i = 0; i < leftPlatformNum; i++) {
             leftPlatforms[i].SetActive(i == leftNum);
         }
 

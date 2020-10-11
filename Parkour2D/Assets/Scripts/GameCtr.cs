@@ -6,6 +6,7 @@ public class GameCtr : MonoBehaviour
 {
     public static GameCtr manager = null;
     public GameUI gameUI;
+    public int coinNum = 0;
 
     private void Awake() {
         if (manager == null) {

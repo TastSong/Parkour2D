@@ -19,10 +19,15 @@ public class GameUI : MonoBehaviour
         });
     }
 
+    private void Update() {
+        scoreText.text = GameCtr.manager.coinNum.ToString();
+    }
+
     public void GameOver() {
         bgCtr.isStopBgMove = true;
         groundCtr.isStopGroundMove = true;
         gameOverUI.SetActive(true);
         AnimMan.manager.isPlayerDead = true;
+        AudioMan.manager.PlayGameOverAudio();
     }
 }
