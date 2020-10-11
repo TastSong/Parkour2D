@@ -4,11 +4,10 @@ using UnityEngine;
 // 人物移动 碰撞检测
 public class PlayerCtr : MonoBehaviour {
     public static PlayerCtr manager = null;
-    public float jumpForce = 300f;  
+    public float jumpForce = 300f;
 
     private Rigidbody2D rig;  
     private bool isOnGround = true;
-    private bool isOnBorder = false;
 
     private void Awake() {
         if (manager == null) {
@@ -42,7 +41,7 @@ public class PlayerCtr : MonoBehaviour {
         } 
 
         if (collision.collider.tag == "Border") {
-            isOnBorder = true;
+            GameCtr.manager.GameOver();
         }
     }
 }

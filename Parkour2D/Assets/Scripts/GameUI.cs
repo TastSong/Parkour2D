@@ -1,18 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 // Game场景UI显示
 public class GameUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public Text scoreText;
+    public BgCtr bgCtr;
+    public GroundCtr groundCtr;
+    public Button gameOverBtn;
+    public GameObject gameOverUI;
+
+    private void Start() {
+        gameOverBtn.onClick.AddListener(() => {
+            gameOverUI.SetActive(false);
+            AnimMan.manager.isPlayerDead = false;
+        });
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void GameOver() {
+        bgCtr.isStopBgMove = true;
+        groundCtr.isStopGroundMove = true;
+        gameOverUI.SetActive(true);
+        AnimMan.manager.isPlayerDead = true;
     }
 }

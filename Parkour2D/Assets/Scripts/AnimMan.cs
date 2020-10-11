@@ -7,6 +7,7 @@ public class AnimMan : MonoBehaviour
     public static AnimMan manager = null;
     public Animator playerAnim;
     public bool isPlayerJump = false;
+    public bool isPlayerDead = false;
 
     private void Awake() {
         if (manager == null) {
@@ -18,5 +19,6 @@ public class AnimMan : MonoBehaviour
 
     private void Update() {
         playerAnim.SetBool("isJump", isPlayerJump);
+        playerAnim.SetBool("isDead", isPlayerDead);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class GroundCtr : MonoBehaviour
 {
     public GroundItem[] GroundItems;
+    public bool isStopGroundMove = false;
     public float speed = 400f;
 
     private float bgWidth = 1920f;
@@ -16,12 +17,14 @@ public class GroundCtr : MonoBehaviour
     }
 
     private void Update() {
-        for (int i = 0; i < GroundItems.Length; i++) {
-            GroundItems[i].gameObject.transform.localPosition -= new Vector3(speed * Time.deltaTime, 0, 0);
-            if (GroundItems[i].gameObject.transform.localPosition.x < -bgWidth) {
-                GroundItems[i].gameObject.transform.localPosition = new Vector3(bgWidth - speed * Time.deltaTime, 0, 0);
-                GroundItems[i].ChangePlatform();
+        if (!isStopGroundMove) {
+            for (int i = 0; i < GroundItems.Length; i++) {
+                GroundItems[i].gameObject.transform.localPosition -= new Vector3(speed * Time.deltaTime, 0, 0);
+                if (GroundItems[i].gameObject.transform.localPosition.x < -bgWidth) {
+                    GroundItems[i].gameObject.transform.localPosition = new Vector3(bgWidth - speed * Time.deltaTime, 0, 0);
+                    GroundItems[i].ChangePlatform();
+                }
             }
-        }
+        }       
     }
 }
