@@ -5,6 +5,8 @@ using UnityEngine;
 public class AnimMan : MonoBehaviour
 {
     public static AnimMan manager = null;
+    public Animator playerAnim;
+    public bool isPlayerJump = false;
 
     private void Awake() {
         if (manager == null) {
@@ -12,5 +14,9 @@ public class AnimMan : MonoBehaviour
         } else if (manager != this) {
             Destroy(gameObject);
         }
+    }
+
+    private void Update() {
+        playerAnim.SetBool("isJump", isPlayerJump);
     }
 }
