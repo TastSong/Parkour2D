@@ -8,6 +8,7 @@ public class PlayerCtr : MonoBehaviour {
 
     private Rigidbody2D rig;  
     private bool isOnGround = true;
+    private Vector3 playerBornPos;
 
     private void Awake() {
         if (manager == null) {
@@ -18,18 +19,19 @@ public class PlayerCtr : MonoBehaviour {
     }
 
     private void Start() {
-        rig = GetComponent<Rigidbody2D>();   
+        rig = GetComponent<Rigidbody2D>();
+        playerBornPos = new Vector3(transform.position.x, 0, transform.position.z);
     }
 
     private void Update() {
+        // 只能跳一次
         float xboxLRT = Input.GetAxis("XBOXLRT");
-        if ((xboxLRT > 0.9f || Input.GetKeyDown(KeyCode.Space))&& isOnGround) {   
+        if ((xboxLRT > 0.9f || Input.GetKeyDown(KeyCode.Space))&& isOnGround && !AnimMan.manager.isPlayerDead) {   
             rig.AddForce(new Vector2(0, jumpForce));   
             AnimMan.manager.isPlayerJump = true;
             AudioMan.manager.PlayPlayerJumpAudio();
             isOnGround = false;
         }
-
         if (AnimMan.manager.isPlayerJump && isOnGround) {
             AnimMan.manager.isPlayerJump = false;
         }
@@ -50,5 +52,9 @@ public class PlayerCtr : MonoBehaviour {
             collision.gameObject.SetActive(false);
             GameCtr.manager.coinNum++;
         }
+    }
+
+    public void SetPlayerBornPos() {
+        transform.position = playerBornPos;
     }
 }

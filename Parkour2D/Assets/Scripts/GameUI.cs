@@ -12,15 +12,22 @@ public class GameUI : MonoBehaviour
     public Button gameOverBtn;
     public GameObject gameOverUI;
 
+    private bool isGameOver = false;
+
     private void Start() {
-        gameOverBtn.onClick.AddListener(() => {
-            gameOverUI.SetActive(false);
-            AnimMan.manager.isPlayerDead = false;
+        gameOverBtn.onClick.AddListener(() => {          
+            GameRestart();   
         });
     }
 
     private void Update() {
         scoreText.text = GameCtr.manager.coinNum.ToString();
+
+        float xboxA = Input.GetAxis("XBOXA");
+
+        if (xboxA > 0.9f && isGameOver) {
+            gameOverBtn.onClick.Invoke();
+        }
     }
 
     public void GameOver() {
@@ -29,5 +36,15 @@ public class GameUI : MonoBehaviour
         gameOverUI.SetActive(true);
         AnimMan.manager.isPlayerDead = true;
         AudioMan.manager.PlayGameOverAudio();
+        isGameOver = true;
+    }
+
+    private void GameRestart() {
+        gameOverUI.SetActive(false);
+        AnimMan.manager.isPlayerDead = false;
+        bgCtr.isStopBgMove = false;
+        groundCtr.isStopGroundMove = false;
+        PlayerCtr.manager.SetPlayerBornPos();
+        isGameOver = false;
     }
 }

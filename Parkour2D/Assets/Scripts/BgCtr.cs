@@ -21,7 +21,7 @@ public class BgCtr : MonoBehaviour
             for (int i = 0; i < bgGo.Length; i++) {
                 bgGo[i].transform.localPosition -= new Vector3(speed * Time.deltaTime, 0, 0);
                 if (bgGo[i].transform.localPosition.x < -bgWidth) {
-                    bgGo[i].transform.localPosition = new Vector3(bgWidth - speed * Time.deltaTime, 0, 0);
+                    bgGo[i].transform.localPosition = new Vector3(bgWidth - 10, 0, 0);
                 }
             }
         }      
