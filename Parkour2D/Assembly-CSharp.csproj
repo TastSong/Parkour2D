@@ -62,8 +62,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\AnimMan.cs" />
     <Compile Include="Assets\Scripts\AudioMan.cs" />
+    <Compile Include="Assets\Scripts\BgCtr.cs" />
     <Compile Include="Assets\Scripts\GameCtr.cs" />
     <Compile Include="Assets\Scripts\GameUI.cs" />
+    <Compile Include="Assets\Scripts\GroundCtr.cs" />
+    <Compile Include="Assets\Scripts\GroundItem.cs" />
     <Compile Include="Assets\Scripts\PlayerCtr.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>F:/Parkour2D/Parkour2D/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
