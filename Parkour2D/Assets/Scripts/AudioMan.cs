@@ -5,6 +5,7 @@ using UnityEngine;
 public class AudioMan : MonoBehaviour
 {
     public static AudioMan manager = null;
+    public AudioSource playerJumpAudio;
 
     private void Awake() {
         if (manager == null) {
@@ -12,5 +13,9 @@ public class AudioMan : MonoBehaviour
         } else if (manager != this) {
             Destroy(gameObject);
         }
+    }
+
+    public void PlayPlayerJumpAudio() {
+        playerJumpAudio.Play();
     }
 }

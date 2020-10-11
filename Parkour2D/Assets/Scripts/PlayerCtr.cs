@@ -27,6 +27,7 @@ public class PlayerCtr : MonoBehaviour {
         if ((xboxLRT > 0.9f || Input.GetKeyDown(KeyCode.Space))&& isOnGround) {   
             rig.AddForce(new Vector2(0, jumpForce));   
             AnimMan.manager.isPlayerJump = true;
+            AudioMan.manager.PlayPlayerJumpAudio();
             isOnGround = false;
         }
 
