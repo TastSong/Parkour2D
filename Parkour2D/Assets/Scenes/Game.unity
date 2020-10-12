@@ -4017,6 +4017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 600
+  jumpOffsetTime: 0.2
 --- !u!1 &1455867143
 GameObject:
   m_ObjectHideFlags: 0
