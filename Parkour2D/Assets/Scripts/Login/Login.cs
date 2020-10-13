@@ -21,8 +21,8 @@ public class Login : MonoBehaviour {
     }
 
     private void Update() {
-        float xboxA = Input.GetAxis("XBOXA");
-        if (xboxA > 0.9f && !isStart) {
+        float xboxA = Input.GetAxis(XBOXInput.xboxA);
+        if (xboxA > XBOXInput.detectionThreshold && !isStart) {
             startBtn.onClick.Invoke();
             isStart = true;
         }

@@ -33,8 +33,8 @@ public class PlayerCtr : MonoBehaviour {
 
     private void Update() {
         // 二连跳
-        float xboxLRT = Input.GetAxis("XBOXLRT");
-        if ((xboxLRT > 0.9f || Input.GetKeyDown(KeyCode.Space))&& isOnGround && !AnimMan.manager.isPlayerDead) {   
+        float xboxLRT = Input.GetAxis(XBOXInput.xboxLRT);
+        if ((xboxLRT > XBOXInput.detectionThreshold || Input.GetKeyDown(KeyCode.Space))&& isOnGround && !AnimMan.manager.isPlayerDead) {   
             rig.AddForce(new Vector2(0, jumpForce));   
             AnimMan.manager.isPlayerJump = true;
             AudioMan.manager.PlayPlayerJumpAudio();
@@ -55,7 +55,8 @@ public class PlayerCtr : MonoBehaviour {
                 isCanSecondJump = true;
             }
         }       
-        if ((xboxLRT   > 0.9f || Input.GetKeyDown(KeyCode.Space)) && isCanSecondJump && !AnimMan.manager.isPlayerDead) {
+        if ((xboxLRT > XBOXInput.detectionThreshold || Input.GetKeyDown(KeyCode.Space)) && 
+            isCanSecondJump && !AnimMan.manager.isPlayerDead) {
             rig.AddForce(new Vector2(0, jumpForce));
             AnimMan.manager.isPlayerJump = true;
             AudioMan.manager.PlayPlayerJumpAudio();
@@ -68,8 +69,9 @@ public class PlayerCtr : MonoBehaviour {
         //  ------------------end-------------
 
         // 攻击
-        float xboxA = Input.GetAxis("XBOXA");
-        if ((xboxA > 0.9f || Input.GetKeyDown(KeyCode.A)) && !AnimMan.manager.isPlayerAttack && !AnimMan.manager.isPlayerDead) {
+        float xboxA = Input.GetAxis(XBOXInput.xboxA);
+        if ((xboxA > XBOXInput.detectionThreshold || Input.GetKeyDown(KeyCode.A)) && !AnimMan.manager.isPlayerAttack && 
+            !AnimMan.manager.isPlayerDead) {
             AnimMan.manager.isPlayerAttack = true;
             sword.SetActive(true);
         }
@@ -92,11 +94,13 @@ public class PlayerCtr : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Coin") {
             collision.gameObject.SetActive(false);
+            AudioMan.manager.PlayCoinAudio();
             GameCtr.manager.coinNum++;
         }
 
         if (sword.activeSelf && collision.tag == "Enemy") {
             GameCtr.manager.coinNum += 3;
+            AudioMan.manager.PlayPlayerAttackAudio();
             collision.gameObject.SetActive(false);
         } else if (!sword.activeSelf && collision.tag == "Enemy") {
             GameCtr.manager.GameOver();

@@ -1,18 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class XBOXInput : MonoBehaviour
+﻿public class XBOXInput 
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static string xboxA = "XBOXA";
+    public static string xboxB = "XBOXB";
+    public static string xboxLRT = "XBOXLRT";
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public static float detectionThreshold = 0.9f;
 }
