@@ -65,15 +65,18 @@ public class PlayerCtr : MonoBehaviour {
         if (AnimMan.manager.isPlayerJump && isOnGround) {
             AnimMan.manager.isPlayerJump = false;
         }
-        // 二连跳↑
+        //  ------------------end-------------
 
         // 攻击
         float xboxA = Input.GetAxis("XBOXA");
-        if (xboxA > 0.9f || Input.GetKeyDown(KeyCode.A)) {
+        if ((xboxA > 0.9f || Input.GetKeyDown(KeyCode.A)) && !AnimMan.manager.isPlayerAttack && !AnimMan.manager.isPlayerDead) {
             AnimMan.manager.isPlayerAttack = true;
             sword.SetActive(true);
         }
-        //
+        if (sword.activeSelf && !AnimMan.manager.isPlayerAttack) {
+            sword.SetActive(false);
+        }
+        // ------------------end-------------
     }
      
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -90,6 +93,13 @@ public class PlayerCtr : MonoBehaviour {
         if (collision.tag == "Coin") {
             collision.gameObject.SetActive(false);
             GameCtr.manager.coinNum++;
+        }
+
+        if (sword.activeSelf && collision.tag == "Enemy") {
+            GameCtr.manager.coinNum += 3;
+            collision.gameObject.SetActive(false);
+        } else if (!sword.activeSelf && collision.tag == "Enemy") {
+            GameCtr.manager.GameOver();
         }
     }
 
