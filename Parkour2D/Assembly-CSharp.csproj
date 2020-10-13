@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Game\GroundItem.cs" />
     <Compile Include="Assets\Scripts\Login\Login.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerCtr.cs" />
+    <Compile Include="Assets\Scripts\XBOXInput.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>F:/Parkour2D/Parkour2D/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
