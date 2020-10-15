@@ -8,20 +8,20 @@ public class BgCtr : MonoBehaviour
     public bool isStopBgMove = false;
     public float speed = 200f;
 
-    private float bgWidth = 1920f;
+    private float bgPosX;
 
     private void Start() {
-        if (bgGo.Length > 0) {
-            bgWidth = bgGo[0].GetComponent<RectTransform>().rect.width;
+        if (bgGo.Length > 1) {
+            bgPosX = bgGo[1].transform.position.x;
         }
     }
 
     private void Update() {
         if (!isStopBgMove) {
             for (int i = 0; i < bgGo.Length; i++) {
-                bgGo[i].transform.localPosition -= new Vector3(speed * Time.deltaTime, 0, 0);
-                if (bgGo[i].transform.localPosition.x < -bgWidth) {
-                    bgGo[i].transform.localPosition = new Vector3(bgWidth, 0, 0);
+                bgGo[i].transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
+                if (bgGo[i].transform.position.x < -bgPosX) {
+                    bgGo[i].transform.position = new Vector3(bgPosX, 0, 0);
                 }
             }
         }      
