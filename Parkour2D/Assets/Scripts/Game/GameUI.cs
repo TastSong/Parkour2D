@@ -7,16 +7,14 @@ using UnityEngine.UI;
 public class GameUI : MonoBehaviour
 {
     public Text scoreText;
-    public BgCtr bgCtr;
-    public GroundCtr groundCtr;
     public Button gameOverBtn;
     public GameObject gameOverUI;
 
     private bool isGameOver = false;
 
     private void Start() {
-        gameOverBtn.onClick.AddListener(() => {          
-            GameRestart();   
+        gameOverBtn.onClick.AddListener(() => {
+            GameCtr.manager.GameRestart();  
         });
     }
 
@@ -29,21 +27,14 @@ public class GameUI : MonoBehaviour
         }
     }
 
-    public void GameOver() {
-        bgCtr.isStopBgMove = true;
-        groundCtr.isStopGroundMove = true;
+    public void GameOver() {       
         gameOverUI.SetActive(true);
-        AnimMan.manager.isPlayerDead = true;
-        AudioMan.manager.PlayGameOverAudio();
+        
         isGameOver = true;
     }
 
-    private void GameRestart() {
-        gameOverUI.SetActive(false);
-        AnimMan.manager.isPlayerDead = false;
-        bgCtr.isStopBgMove = false;
-        groundCtr.isStopGroundMove = false;
-        PlayerCtr.manager.SetPlayerBornPos();
+    public void GameRestart() {
+        gameOverUI.SetActive(false);        
         isGameOver = false;
     }
 }

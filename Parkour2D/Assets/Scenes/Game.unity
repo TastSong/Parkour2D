@@ -737,6 +737,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameUI: {fileID: 1512195974}
+  bgCtr: {fileID: 2096492627}
+  groundCtr: {fileID: 1212856626}
   coinNum: 0
 --- !u!1 &121695993
 GameObject:
@@ -4733,8 +4735,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 242805843}
-  bgCtr: {fileID: 2096492627}
-  groundCtr: {fileID: 1212856626}
   gameOverBtn: {fileID: 407610067}
   gameOverUI: {fileID: 1322258879}
 --- !u!1 &1512507021
@@ -4897,6 +4897,7 @@ GameObject:
   - component: {fileID: 1541803469}
   - component: {fileID: 1541803470}
   - component: {fileID: 1541803471}
+  - component: {fileID: 1541803472}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -4992,6 +4993,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.52, y: 0.56}
   m_EdgeRadius: 0
+--- !u!114 &1541803472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541803468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9201024e17f94488274cd18f233dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemys:
+  - {fileID: 1541803468}
 --- !u!1 &1560852097
 GameObject:
   m_ObjectHideFlags: 0
