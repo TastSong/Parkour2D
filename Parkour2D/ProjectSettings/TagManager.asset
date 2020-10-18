@@ -8,6 +8,8 @@ TagManager:
   - Border
   - Coin
   - Enemy
+  - Sword
+  - FlyGift
   layers:
   - Default
   - TransparentFX

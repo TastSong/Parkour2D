@@ -9,6 +9,7 @@ public class AnimMan : MonoBehaviour
     public bool isPlayerJump = false;
     public bool isPlayerDead = false;
     public bool isPlayerAttack = false;
+    public bool isPlayerFly = false;
 
     private AnimatorStateInfo animInfo;
 
@@ -24,9 +25,11 @@ public class AnimMan : MonoBehaviour
         playerAnim.SetBool("isJump", isPlayerJump);
         playerAnim.SetBool("isDead", isPlayerDead);
         playerAnim.SetBool("isAttack", isPlayerAttack);
+        playerAnim.SetBool("isFly", isPlayerFly);
 
-        animInfo = playerAnim.GetCurrentAnimatorStateInfo(0); 
-        if ((animInfo.normalizedTime >= 1.0f) && (animInfo.IsName("PlayerAttack")))//normalizedTime：0-1在播放、0开始、1结束 MyPlay为状态机动画的名字
+        animInfo = playerAnim.GetCurrentAnimatorStateInfo(0);
+        //normalizedTime：0-1在播放、0开始、1结束 MyPlay为状态机动画的名字
+        if ((animInfo.normalizedTime >= 1.0f) && (animInfo.IsName("PlayerAttack")))
         {
             isPlayerAttack = false;
         }

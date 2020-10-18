@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BgCtr : MonoBehaviour
-{
+public class BgCtr : MonoBehaviour {
     public GameObject[] bgGo;
     public bool isStopBgMove = false;
     public float speed = 200f;
@@ -13,11 +12,9 @@ public class BgCtr : MonoBehaviour
     private float bgStartPosZ;
 
     private void Start() {
-        if (bgGo.Length > 1) {
-            bgStartPosX = bgGo[1].transform.position.x;
-            bgStartPosY = bgGo[1].transform.position.y;
-            bgStartPosZ = bgGo[1].transform.position.z;
-        }
+        bgStartPosX = bgGo[bgGo.Length - 1].transform.position.x;
+        bgStartPosY = bgGo[bgGo.Length - 1].transform.position.y;
+        bgStartPosZ = bgGo[bgGo.Length - 1].transform.position.z;
     }
 
     private void Update() {
@@ -28,6 +25,6 @@ public class BgCtr : MonoBehaviour
                     bgGo[i].transform.position = new Vector3(bgStartPosX, bgStartPosY, bgStartPosZ);
                 }
             }
-        }      
+        }
     }
 }

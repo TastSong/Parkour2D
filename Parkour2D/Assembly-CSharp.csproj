@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Game\EnemyItem.cs" />
     <Compile Include="Assets\Scripts\Game\GameCtr.cs" />
     <Compile Include="Assets\Scripts\Game\GameUI.cs" />
+    <Compile Include="Assets\Scripts\Game\GiftItem.cs" />
     <Compile Include="Assets\Scripts\Game\GroundCtr.cs" />
     <Compile Include="Assets\Scripts\Game\GroundItem.cs" />
     <Compile Include="Assets\Scripts\Login\Login.cs" />

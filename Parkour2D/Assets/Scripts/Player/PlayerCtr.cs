@@ -4,13 +4,17 @@ using UnityEngine;
 // 人物移动 碰撞检测
 public class PlayerCtr : MonoBehaviour {
     public static PlayerCtr manager = null;
+    public GameObject swordSpace;
     public GameObject sword;
     public float jumpForce = 300f;
     public float jumpOffsetTime = 0.2f;
 
-    private Rigidbody2D rig;  
+    private Rigidbody2D rig;
+    private float startGravity;
     private bool isOnGround = true;
     private Vector3 playerBornPos;
+    private Vector3 playerFlyPos;
+    private float flyTime = 3f;
     private float jumpOffsetTimer;
     private bool isFirstJumpStart = false;
     private bool isCanSecondJump = false;
@@ -25,10 +29,11 @@ public class PlayerCtr : MonoBehaviour {
 
     private void Start() {
         rig = GetComponent<Rigidbody2D>();
-        sword.SetActive(false);
+        startGravity = rig.gravityScale;
+        swordSpace.SetActive(false);
         playerBornPos = new Vector3(transform.position.x, 0, transform.position.z);
+        playerFlyPos = playerBornPos + new Vector3(0, 0.6f, 0);
         jumpOffsetTimer = jumpOffsetTime;
-
     }
 
     private void Update() {
@@ -47,6 +52,7 @@ public class PlayerCtr : MonoBehaviour {
             jumpOffsetTimer = jumpOffsetTime;
             isCanSecondJump = false;
         }
+        // 由于xbox的输入的连续性问题，所以要用计时器隔开两次输入
         if (isFirstJumpStart) {
             jumpOffsetTimer -= Time.deltaTime;
             if (jumpOffsetTimer < 0) {
@@ -73,10 +79,10 @@ public class PlayerCtr : MonoBehaviour {
         if ((xboxA > XBOXInput.detectionThreshold || Input.GetKeyDown(KeyCode.A)) && !AnimMan.manager.isPlayerAttack && 
             !AnimMan.manager.isPlayerDead) {
             AnimMan.manager.isPlayerAttack = true;
-            sword.SetActive(true);
+            swordSpace.SetActive(true);
         }
-        if (sword.activeSelf && !AnimMan.manager.isPlayerAttack) {
-            sword.SetActive(false);
+        if (swordSpace.activeSelf && !AnimMan.manager.isPlayerAttack) {
+            swordSpace.SetActive(false);
         }
         // ------------------end-------------
     }
@@ -98,16 +104,34 @@ public class PlayerCtr : MonoBehaviour {
             GameCtr.manager.coinNum++;
         }
 
-        if (sword.activeSelf && collision.tag == "Enemy") {
+        if (swordSpace.activeSelf && collision.tag == "Enemy") {
             GameCtr.manager.coinNum += 3;
             AudioMan.manager.PlayPlayerAttackAudio();
             collision.gameObject.SetActive(false);
-        } else if (!sword.activeSelf && collision.tag == "Enemy") {
+        } else if (!swordSpace.activeSelf && collision.tag == "Enemy") {
             GameCtr.manager.GameOver();
+        }
+
+        if (collision.tag == "FlyGift") {
+            collision.gameObject.SetActive(false);
+            StartCoroutine(PlayerFly());
         }
     }
 
     public void SetPlayerBornPos() {
         transform.position = playerBornPos;
+    }
+
+    private IEnumerator PlayerFly() {
+        sword.SetActive(true);
+        transform.position = playerFlyPos;
+        rig.gravityScale = 0;
+        isOnGround = false;
+        AnimMan.manager.isPlayerFly = true;
+        yield return new WaitForSeconds(3f);
+        sword.SetActive(false);
+        rig.gravityScale = startGravity;
+        transform.position = playerBornPos;
+        AnimMan.manager.isPlayerFly = false;
     }
 }

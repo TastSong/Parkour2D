@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundCtr : MonoBehaviour
-{
+public class GroundCtr : MonoBehaviour {
     public GroundItem[] GroundItems;
     public bool isStopGroundMove = false;
     public float speed = 400f;
@@ -13,11 +12,9 @@ public class GroundCtr : MonoBehaviour
     private float itemPosZ = 1920f;
 
     private void Start() {
-        if (GroundItems.Length > 1) {
-            itemPosX = GroundItems[1].transform.position.x;
-            itemPosY = GroundItems[1].transform.position.y;
-            itemPosZ = GroundItems[1].transform.position.z;
-        }
+        itemPosX = GroundItems[GroundItems.Length - 1].transform.position.x;
+        itemPosY = GroundItems[GroundItems.Length - 1].transform.position.y;
+        itemPosZ = GroundItems[GroundItems.Length - 1].transform.position.z;
     }
 
     private void Update() {
@@ -29,6 +26,6 @@ public class GroundCtr : MonoBehaviour
                     GroundItems[i].ChangePlatform();
                 }
             }
-        }       
+        }
     }
 }
