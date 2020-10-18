@@ -13,6 +13,7 @@ public class Login : MonoBehaviour {
     private bool isStart = false;
 
     private void Start() {
+        startBtn.gameObject.SetActive(true);
         startBtn.onClick.AddListener(() => {
             asyncOp = SceneManager.LoadSceneAsync("Game");
             asyncOp.allowSceneActivation = false;
