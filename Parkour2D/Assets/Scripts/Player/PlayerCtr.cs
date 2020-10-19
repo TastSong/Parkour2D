@@ -18,6 +18,7 @@ public class PlayerCtr : MonoBehaviour {
     private float jumpOffsetTimer;
     private bool isFirstJumpStart = false;
     private bool isCanSecondJump = false;
+    private int enemyReward = 3;
 
     private void Awake() {
         if (manager == null) {
@@ -101,11 +102,11 @@ public class PlayerCtr : MonoBehaviour {
         if (collision.tag == "Coin") {
             collision.gameObject.SetActive(false);
             AudioMan.manager.PlayCoinAudio();
-            GameCtr.manager.coinNum++;
+            GameCtr.manager.score++;
         }
 
         if (swordSpace.activeSelf && collision.tag == "Enemy") {
-            GameCtr.manager.coinNum += 3;
+            GameCtr.manager.score += enemyReward;
             AudioMan.manager.PlayPlayerAttackAudio();
             collision.gameObject.SetActive(false);
         } else if (!swordSpace.activeSelf && collision.tag == "Enemy") {

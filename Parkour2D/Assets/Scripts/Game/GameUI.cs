@@ -19,7 +19,7 @@ public class GameUI : MonoBehaviour
     }
 
     private void Update() {
-        scoreText.text = GameCtr.manager.coinNum.ToString();
+        scoreText.text = GameCtr.manager.score.ToString();
 
         float xboxA = Input.GetAxis(XBOXInput.xboxA);
         if (xboxA > XBOXInput.detectionThreshold && isGameOver) {

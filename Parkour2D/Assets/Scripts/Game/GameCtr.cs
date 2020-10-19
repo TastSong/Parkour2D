@@ -8,7 +8,7 @@ public class GameCtr : MonoBehaviour
     public GameUI gameUI;
     public BgCtr bgCtr;
     public GroundCtr groundCtr;
-    public int coinNum = 0;
+    public int score = 0;
 
     private void Awake() {
         if (manager == null) {

@@ -28,15 +28,15 @@ public class GameOverAnim : MonoBehaviour
     private IEnumerator ScoreChangeAnim() {
         yield return new WaitForSecondsRealtime(gameOverBgTiem);
         float scoreAnimTimer = scoreAnimTime;       
-        float offsetTime = scoreAnimTime / GameCtr.manager.coinNum;
+        float offsetTime = scoreAnimTime / GameCtr.manager.score;
         int curScore;
         while (true) {
             scoreAnimTimer -= Time.deltaTime;
             curScore = (int)Math.Ceiling((int.Parse(scoreText.text) + offsetTime));
-            if (curScore < GameCtr.manager.coinNum && scoreAnimTimer > 0) {
+            if (curScore < GameCtr.manager.score && scoreAnimTimer > 0) {
                 scoreText.text = curScore.ToString();
             } else {
-                scoreText.text = GameCtr.manager.coinNum.ToString();
+                scoreText.text = GameCtr.manager.score.ToString();
                 break;
             }          
             yield return new WaitForSeconds(offsetTime);
