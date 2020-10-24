@@ -6,6 +6,7 @@ public class BgCtr : MonoBehaviour {
     public GameObject[] bgGo;
     public bool isStopBgMove = false;
     public float speed = 200f;
+    public float startSpeed;
 
     private float bgStartPosX;
     private float bgStartPosY;
@@ -15,6 +16,8 @@ public class BgCtr : MonoBehaviour {
         bgStartPosX = bgGo[bgGo.Length - 1].transform.position.x;
         bgStartPosY = bgGo[bgGo.Length - 1].transform.position.y;
         bgStartPosZ = bgGo[bgGo.Length - 1].transform.position.z;
+
+        startSpeed = speed;
     }
 
     private void Update() {

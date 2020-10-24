@@ -117,6 +117,11 @@ public class PlayerCtr : MonoBehaviour {
             collision.gameObject.SetActive(false);
             StartCoroutine(PlayerFly());
         }
+
+        if (collision.tag == "SpeedupGift") {
+            collision.gameObject.SetActive(false);
+            StartCoroutine(PlayerSpeedup());
+        }
     }
 
     public void SetPlayerBornPos() {
@@ -134,5 +139,11 @@ public class PlayerCtr : MonoBehaviour {
         rig.gravityScale = startGravity;
         transform.position = playerBornPos;
         AnimMan.manager.isPlayerFly = false;
+    }
+
+    private IEnumerator PlayerSpeedup() {
+        GameCtr.manager.SetGameSpeed(1.2f, 1.4f);
+        yield return new WaitForSeconds(4f);
+        GameCtr.manager.SetGameSpeed();
     }
 }

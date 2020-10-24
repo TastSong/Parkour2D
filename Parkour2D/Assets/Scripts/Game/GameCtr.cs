@@ -33,4 +33,9 @@ public class GameCtr : MonoBehaviour
         PlayerCtr.manager.SetPlayerBornPos();
         gameUI.GameRestart();
     }
+
+    public void SetGameSpeed(float bgSpeed = 1, float groundSpeed = 1) {
+        bgCtr.speed = bgCtr.startSpeed * bgSpeed;
+        groundCtr.speed = groundCtr.startSpeed * groundSpeed;
+    }
 }
