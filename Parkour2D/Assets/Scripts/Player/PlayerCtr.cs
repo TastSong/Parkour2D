@@ -15,6 +15,7 @@ public class PlayerCtr : MonoBehaviour {
     private Vector3 playerBornPos;
     private Vector3 playerFlyPos;
     private float flyTime = 3f;
+    private bool isFly = false;
     private float jumpOffsetTimer;
     private bool isFirstJumpStart = false;
     private bool isCanSecondJump = false;
@@ -40,12 +41,9 @@ public class PlayerCtr : MonoBehaviour {
     private void Update() {
         // 二连跳
         float xboxLRT = Input.GetAxis(XBOXInput.xboxLRT);
-        if ((xboxLRT > XBOXInput.detectionThreshold || Input.GetKeyDown(KeyCode.Space))&& isOnGround && !AnimMan.manager.isPlayerDead) {   
-            rig.AddForce(new Vector2(0, jumpForce));   
-            AnimMan.manager.isPlayerJump = true;
-            AudioMan.manager.PlayPlayerJumpAudio();
-            isOnGround = false;
-            isFirstJumpStart = true;
+        if ((xboxLRT > XBOXInput.detectionThreshold || Input.GetKeyDown(KeyCode.Space))&&
+            isOnGround && !AnimMan.manager.isPlayerDead && !isFly) {   
+             
         }  
         
         if (isOnGround) {
@@ -129,12 +127,14 @@ public class PlayerCtr : MonoBehaviour {
     }
 
     private IEnumerator PlayerFly() {
+        isOnGround = false;
+        isFly = true;
         sword.SetActive(true);
         transform.position = playerFlyPos;
         rig.gravityScale = 0;
-        isOnGround = false;
         AnimMan.manager.isPlayerFly = true;
         yield return new WaitForSeconds(3f);
+        isFly = false;
         sword.SetActive(false);
         rig.gravityScale = startGravity;
         transform.position = playerBornPos;
