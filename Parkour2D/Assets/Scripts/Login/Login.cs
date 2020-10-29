@@ -7,13 +7,18 @@ using UnityEngine.UI;
 public class Login : MonoBehaviour {
     public Button startBtn;
     public Slider loadSceneSlider;
+    public Button settingsBtn;
+    public SystemSettingsUI settingsUI;
 
     private AsyncOperation asyncOp = null;
     private float loadProgress;
     private bool isStart = false;
 
     private void Start() {
-        startBtn.gameObject.SetActive(true);
+        settingsBtn.onClick.AddListener(() => {            
+            settingsUI.gameObject.SetActive(true);
+        });
+
         startBtn.onClick.AddListener(() => {
             asyncOp = SceneManager.LoadSceneAsync("Game");
             asyncOp.allowSceneActivation = false;

@@ -10,7 +10,7 @@ public class GameOverUI : MonoBehaviour
 
     private void Start() {
         continueBtn.onClick.AddListener(() => {
-            GameCtr.manager.GameRestart();
+            UIManager.manager.GameRestart();
         });
     }
 

@@ -41,10 +41,9 @@ public class PlayerCtr : MonoBehaviour {
     private void Update() {
         // 二连跳 第一跳
         float xboxLRT = Input.GetAxis(XBOXInput.xboxLRT);
-        if ((xboxLRT > XBOXInput.detectionThreshold || GameCtr.manager.gameUI.isJump) &&
+        if ((xboxLRT > XBOXInput.detectionThreshold || UIManager.manager.gameUI.isJump) &&
             isOnGround && !AnimMan.manager.isPlayerDead && !isFly) {
             PlayerJump();
-            Debug.Log("++++ 第一次跳跃");
             isOnGround = false;
             isFirstJumpStart = true;
         }
@@ -65,10 +64,9 @@ public class PlayerCtr : MonoBehaviour {
                 isCanSecondJump = false;
             }
         }
-        if ((xboxLRT > XBOXInput.detectionThreshold || GameCtr.manager.gameUI.isJump) &&
+        if ((xboxLRT > XBOXInput.detectionThreshold || UIManager.manager.gameUI.isJump) &&
             isCanSecondJump && !AnimMan.manager.isPlayerDead && !isFly) {
             PlayerJump();
-            Debug.Log("++++ 第二次跳跃");
             isCanSecondJump = false;
         }
 
@@ -79,11 +77,11 @@ public class PlayerCtr : MonoBehaviour {
 
         // 攻击
         float xboxA = Input.GetAxis(XBOXInput.xboxA);
-        if ((xboxA > XBOXInput.detectionThreshold || GameCtr.manager.gameUI.isAttack) &&
+        if ((xboxA > XBOXInput.detectionThreshold || UIManager.manager.gameUI.isAttack) &&
             !AnimMan.manager.isPlayerAttack && !AnimMan.manager.isPlayerDead) {
             AnimMan.manager.isPlayerAttack = true;
             swordSpace.SetActive(true);
-            GameCtr.manager.gameUI.isAttack = false;
+            UIManager.manager.gameUI.isAttack = false;
         }
         if (swordSpace.activeSelf && !AnimMan.manager.isPlayerAttack) {
             swordSpace.SetActive(false);
@@ -97,7 +95,7 @@ public class PlayerCtr : MonoBehaviour {
         }
 
         if (collision.collider.tag == "Border") {
-            GameCtr.manager.GameOver();
+            UIManager.manager.GameOver();
         }
     }
 
@@ -105,15 +103,15 @@ public class PlayerCtr : MonoBehaviour {
         if (collision.tag == "Coin") {
             collision.gameObject.SetActive(false);
             AudioMan.manager.PlayCoinAudio();
-            GameCtr.manager.score++;
+            UIManager.manager.score++;
         }
 
         if (swordSpace.activeSelf && collision.tag == "Enemy") {
-            GameCtr.manager.score += enemyReward;
+            UIManager.manager.score += enemyReward;
             AudioMan.manager.PlayPlayerAttackAudio();
             collision.gameObject.SetActive(false);
         } else if (!swordSpace.activeSelf && collision.tag == "Enemy") {
-            GameCtr.manager.GameOver();
+            UIManager.manager.GameOver();
         }
 
         if (collision.tag == "FlyGift") {
@@ -135,7 +133,7 @@ public class PlayerCtr : MonoBehaviour {
         rig.AddForce(new Vector2(0, jumpForce));
         AnimMan.manager.isPlayerJump = true;
         AudioMan.manager.PlayPlayerJumpAudio();
-        GameCtr.manager.gameUI.isJump = false;
+        UIManager.manager.gameUI.isJump = false;
     }
 
     private IEnumerator PlayerFly() {
@@ -156,8 +154,8 @@ public class PlayerCtr : MonoBehaviour {
     }
 
     private IEnumerator PlayerSpeedup() {
-        GameCtr.manager.SetGameSpeed(1.2f, 1.4f);
+        UIManager.manager.SetGameSpeed(1.2f, 1.4f);
         yield return new WaitForSeconds(4f);
-        GameCtr.manager.SetGameSpeed();
+        UIManager.manager.SetGameSpeed();
     }
 }

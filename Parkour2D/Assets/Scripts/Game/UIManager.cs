@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 // 游戏逻辑控制：比赛结束判定
-public class GameCtr : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    public static GameCtr manager = null;
+    public static UIManager manager = null;
     public GameUI gameUI;
-    public SystemSettingsInfo settingsInfo;
     public BgCtr bgCtr;
     public GroundCtr groundCtr;
     public int score = 0;
@@ -17,25 +16,6 @@ public class GameCtr : MonoBehaviour
         } else if (manager != this) {
             Destroy(gameObject);
         }
-    }
-
-    private void Start() {
-        InitSettingsInfo();
-    }
-
-    private void InitSettingsInfo() {
-        Debug.Log("+++++++++++++++ GameCtr 初始化设置");
-        settingsInfo = SystemSettingsInfo.ParseSystemInfo();
-        if (settingsInfo == null) {
-            Debug.Log("Load local setting");
-            settingsInfo = new SystemSettingsInfo();
-            settingsInfo.isPlayAudio = true;
-            settingsInfo.isPlayBackgroundMusic = true;
-            SystemSettingsInfo.SaveSystemInfo(settingsInfo);
-        }
-
-        AudioMan.manager.IsPlayAudio(settingsInfo.isPlayAudio);
-        AudioMan.manager.IsPlayBackgroundMusic(settingsInfo.isPlayBackgroundMusic);
     }
 
     public void GameOver() {

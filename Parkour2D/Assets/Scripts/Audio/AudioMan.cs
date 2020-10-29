@@ -21,6 +21,8 @@ public class AudioMan : MonoBehaviour
     }
     private void Start() {
         backgroundMusic.Play();
+        IsPlayAudio(GamController.manager.settingsInfo.isPlayAudio);
+        IsPlayBackgroundMusic(GamController.manager.settingsInfo.isPlayBackgroundMusic);
     }
 
     public void IsPlayAudio(bool isPlay) {

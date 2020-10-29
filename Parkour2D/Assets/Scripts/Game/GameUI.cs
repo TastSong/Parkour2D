@@ -24,7 +24,7 @@ public class GameUI : MonoBehaviour
     }
 
     private void Update() {
-        scoreText.text = GameCtr.manager.score.ToString();
+        scoreText.text = UIManager.manager.score.ToString();
     }
 
     public void GameOver() {       
