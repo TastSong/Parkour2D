@@ -8,11 +8,23 @@ public class GameUI : MonoBehaviour
 {
     public Text scoreText;
     public Button gameOverBtn;
+    public Button jumpBtn;
+    public bool isJump = false;
+    public Button attackBtn;
+    public bool isAttack = false;
     public GameObject gameOverUI;
 
     private bool isGameOver = false;
 
     private void Start() {
+        jumpBtn.onClick .AddListener(() => {
+            isJump = true;
+        });
+
+        attackBtn.onClick.AddListener(() => {
+            isAttack = true;
+        });
+
         gameOverBtn.onClick.AddListener(() => {
             GameCtr.manager.GameRestart();  
         });

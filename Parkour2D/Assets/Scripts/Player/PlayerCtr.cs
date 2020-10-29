@@ -39,32 +39,36 @@ public class PlayerCtr : MonoBehaviour {
     }
 
     private void Update() {
-        // 二连跳
+        // 二连跳 第一跳
         float xboxLRT = Input.GetAxis(XBOXInput.xboxLRT);
-        if ((xboxLRT > XBOXInput.detectionThreshold || Input.GetKeyDown(KeyCode.Space))&&
-            isOnGround && !AnimMan.manager.isPlayerDead && !isFly) {   
-             
-        }  
-        
+        if ((xboxLRT > XBOXInput.detectionThreshold || GameCtr.manager.gameUI.isJump) &&
+            isOnGround && !AnimMan.manager.isPlayerDead && !isFly) {
+            PlayerJump();
+            Debug.Log("++++ 第一次跳跃");
+            isOnGround = false;
+            isFirstJumpStart = true;
+        }
+
         if (isOnGround) {
             isFirstJumpStart = false;
             jumpOffsetTimer = jumpOffsetTime;
             isCanSecondJump = false;
         }
-        // 由于xbox的输入的连续性问题，所以要用计时器隔开两次输入
+        // 由于xbox的输入的连续性问题，所以要用计时器隔开两次输入 第二跳
         if (isFirstJumpStart) {
             jumpOffsetTimer -= Time.deltaTime;
             if (jumpOffsetTimer < 0) {
                 isFirstJumpStart = false;
                 jumpOffsetTimer = jumpOffsetTime;
                 isCanSecondJump = true;
+            } else {
+                isCanSecondJump = false;
             }
-        }       
-        if ((xboxLRT > XBOXInput.detectionThreshold || Input.GetKeyDown(KeyCode.Space)) && 
-            isCanSecondJump && !AnimMan.manager.isPlayerDead) {
-            rig.AddForce(new Vector2(0, jumpForce));
-            AnimMan.manager.isPlayerJump = true;
-            AudioMan.manager.PlayPlayerJumpAudio();
+        }
+        if ((xboxLRT > XBOXInput.detectionThreshold || GameCtr.manager.gameUI.isJump) &&
+            isCanSecondJump && !AnimMan.manager.isPlayerDead && !isFly) {
+            PlayerJump();
+            Debug.Log("++++ 第二次跳跃");
             isCanSecondJump = false;
         }
 
@@ -75,25 +79,26 @@ public class PlayerCtr : MonoBehaviour {
 
         // 攻击
         float xboxA = Input.GetAxis(XBOXInput.xboxA);
-        if ((xboxA > XBOXInput.detectionThreshold || Input.GetKeyDown(KeyCode.A)) && !AnimMan.manager.isPlayerAttack && 
-            !AnimMan.manager.isPlayerDead) {
+        if ((xboxA > XBOXInput.detectionThreshold || GameCtr.manager.gameUI.isAttack) &&
+            !AnimMan.manager.isPlayerAttack && !AnimMan.manager.isPlayerDead) {
             AnimMan.manager.isPlayerAttack = true;
             swordSpace.SetActive(true);
+            GameCtr.manager.gameUI.isAttack = false;
         }
         if (swordSpace.activeSelf && !AnimMan.manager.isPlayerAttack) {
             swordSpace.SetActive(false);
         }
         // ------------------end-------------
     }
-     
+
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.tag == "Ground") {
             isOnGround = true;
-        } 
+        }
 
         if (collision.collider.tag == "Border") {
             GameCtr.manager.GameOver();
-        }    
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -126,12 +131,20 @@ public class PlayerCtr : MonoBehaviour {
         transform.position = playerBornPos;
     }
 
+    private void PlayerJump() {
+        rig.AddForce(new Vector2(0, jumpForce));
+        AnimMan.manager.isPlayerJump = true;
+        AudioMan.manager.PlayPlayerJumpAudio();
+        GameCtr.manager.gameUI.isJump = false;
+    }
+
     private IEnumerator PlayerFly() {
-        isOnGround = false;
         isFly = true;
+        rig.velocity = Vector2.zero;
         sword.SetActive(true);
         transform.position = playerFlyPos;
         rig.gravityScale = 0;
+        isOnGround = false;
         AnimMan.manager.isPlayerFly = true;
         yield return new WaitForSeconds(3f);
         isFly = false;
