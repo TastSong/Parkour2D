@@ -145,6 +145,7 @@ public class PlayerCtr : MonoBehaviour {
         transform.position = playerFlyPos;
         rig.gravityScale = 0;
         isOnGround = false;
+        AudioMan.manager.PlayFlyAudio();
         AnimMan.manager.isPlayerFly = true;
         yield return new WaitForSeconds(3f);
         isFly = false;

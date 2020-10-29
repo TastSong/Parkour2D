@@ -7,6 +7,7 @@ using System;
 
 public class GameOverAnim : MonoBehaviour
 {
+    public bool isAnimOver = false;
     public Image gameOverBg;
     public float gameOverBgTiem = 0.3f;
     public Image scoreImage;
@@ -37,6 +38,7 @@ public class GameOverAnim : MonoBehaviour
                 scoreText.text = curScore.ToString();
             } else {
                 scoreText.text = GameCtr.manager.score.ToString();
+                isAnimOver = true;
                 break;
             }          
             yield return new WaitForSeconds(offsetTime);

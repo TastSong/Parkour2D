@@ -9,6 +9,8 @@ public class AudioMan : MonoBehaviour
     public AudioSource gameOverAudio;
     public AudioSource playerAttackAudio;
     public AudioSource coinAudio;
+    public AudioSource flyAudio;
+    public AudioSource backgroundMusic;
 
     private void Awake() {
         if (manager == null) {
@@ -16,6 +18,17 @@ public class AudioMan : MonoBehaviour
         } else if (manager != this) {
             Destroy(gameObject);
         }
+    }
+    private void Start() {
+        backgroundMusic.Play();
+    }
+
+    public void IsPlayAudio(bool isPlay) {
+        playerJumpAudio.mute = !isPlay;
+        gameOverAudio.mute = !isPlay;
+        playerAttackAudio.mute = !isPlay;
+        coinAudio.mute = !isPlay;
+        flyAudio.mute = !isPlay;
     }
 
     public void PlayPlayerJumpAudio() {
@@ -32,5 +45,13 @@ public class AudioMan : MonoBehaviour
 
     public void PlayCoinAudio() {
         coinAudio.Play();
+    }
+
+    public void PlayFlyAudio() {
+        flyAudio.Play();
+    }
+
+    public void IsPlayBackgroundMusic(bool isPlay) {
+        backgroundMusic.mute = !isPlay;
     }
 }
