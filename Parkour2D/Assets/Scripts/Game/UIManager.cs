@@ -30,13 +30,14 @@ public class UIManager : MonoBehaviour
         gameUI.GameRestart();
     }
 
+    public void GameContinue() {
+        bgCtr.isStopBgMove = false;
+        groundCtr.isStopGroundMove = false;
+        gameUI.GameContinue();
+    }
+
     public void SetGameSpeed(float bgSpeed = 1, float groundSpeed = 1) {
         bgCtr.speed = bgCtr.startSpeed * bgSpeed;
         groundCtr.speed = groundCtr.startSpeed * groundSpeed;
-    }
-
-    public void IsGamePause() {
-        bgCtr.isStopBgMove = GameController.manager.isPause;
-        groundCtr.isStopGroundMove = GameController.manager.isPause;
     }
 }

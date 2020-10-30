@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GamePauseUI : MonoBehaviour
 {
     public Button continueBtn;
-    public GameOverAnim gameOverAnim;
+    public Text scoreText;
 
     private void Start() {
         continueBtn.onClick.AddListener(() => {
@@ -17,8 +17,7 @@ public class GamePauseUI : MonoBehaviour
 
     private void Update() {
         float xboxA = Input.GetAxis(XBOXInput.xboxA);
-        if (xboxA > XBOXInput.detectionThreshold && gameOverAnim.isAnimOver) {
-            gameOverAnim.isAnimOver = false;
+        if (xboxA > XBOXInput.detectionThreshold) {
             continueBtn.onClick.Invoke();
         }
     }

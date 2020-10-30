@@ -158,6 +158,8 @@ MonoBehaviour:
   settingsInfo:
     isPlayAudio: 0
     isPlayBackgroundMusic: 0
+  isPause: 0
+  score: 0
 --- !u!1 &212614692
 GameObject:
   m_ObjectHideFlags: 0

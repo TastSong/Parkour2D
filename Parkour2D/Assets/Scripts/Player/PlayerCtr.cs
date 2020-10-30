@@ -99,7 +99,8 @@ public class PlayerCtr : MonoBehaviour {
         }
 
         if (collision.collider.tag == "Border") {
-            GameController.manager.GameOver();
+            GameController.manager.curPlayerLife -= 1;
+            GameController.manager.CheckGameOver();
         }
     }
 
@@ -115,7 +116,8 @@ public class PlayerCtr : MonoBehaviour {
             AudioMan.manager.PlayPlayerAttackAudio();
             collision.gameObject.SetActive(false);
         } else if (!swordSpace.activeSelf && collision.tag == "Enemy") {
-            GameController.manager.GameOver();
+            GameController.manager.curPlayerLife -= 1;
+            GameController.manager.CheckGameOver();
         }
 
         if (collision.tag == "FlyGift") {
@@ -166,15 +168,4 @@ public class PlayerCtr : MonoBehaviour {
         UIManager.manager.SetGameSpeed();
         UIManager.manager.gameUI.SetSpeedSkill(false);
     }
-
-    public void IsPlayerPause() {
-        Debug.Log("+++++++++++++++++++++Player isPause " + isPause);
-        isPause = GameController.manager.isPause;
-        if (isPause) {
-            rig.gravityScale = 0;
-        } else {
-            rig.gravityScale = startGravity;
-        }
-    }
-
 }

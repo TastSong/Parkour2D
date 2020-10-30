@@ -6,8 +6,13 @@ public class GameController : MonoBehaviour
 {
     public static GameController manager = null;
     public SystemSettingsInfo settingsInfo;
+    public bool isGameOver = false;
     public bool isPause = false;
     public int score = 0;
+    public int gameTime = 60;
+    public bool isInGameTime = true;
+    public int playerLife = 3;
+    public int curPlayerLife;
 
     private void Awake() {
         if (manager == null) {
@@ -34,21 +39,40 @@ public class GameController : MonoBehaviour
 
     public void IsGamePause(bool isPause) {
         this.isPause = isPause;
-        AnimMan.manager.isPlayerDead = false;
-        PlayerCtr.manager.IsPlayerPause();
-        UIManager.manager.IsGamePause();
+        if (isPause) {
+            Time.timeScale = 0;
+        } else {
+            Time.timeScale = 1;
+        }
     }
 
-    public void GameOver() {
+    private void GameOver() {
+        isGameOver = true;
         AnimMan.manager.isPlayerDead = true;
         AudioMan.manager.PlayGameOverAudio();
         UIManager.manager.GameOver();
     }
 
     public void GameRestart() {
+        isGameOver = false;
         AnimMan.manager.isPlayerDead = false;
         PlayerCtr.manager.SetPlayerBornPos();
         UIManager.manager.GameRestart();
         score = 0;
+        UIManager.manager.gameUI.InitUI();
+    }
+
+    public void GameContinue() {
+        AnimMan.manager.isPlayerDead = false;
+        PlayerCtr.manager.SetPlayerBornPos();
+        UIManager.manager.GameContinue();
+    }
+
+    public void CheckGameOver() {
+        if (curPlayerLife <= 0 || !isInGameTime) {
+            GameOver();
+        } else {
+            GameContinue();
+        }
     }
 }
