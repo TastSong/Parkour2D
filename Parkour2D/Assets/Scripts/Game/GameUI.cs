@@ -6,6 +6,7 @@ using UnityEngine.UI;
 // Game场景UI显示
 public class GameUI : MonoBehaviour
 {
+    public Button pauseBtn;
     public Image flySkill;
     public Image speedSkill;
     public Text scoreText;
@@ -14,8 +15,14 @@ public class GameUI : MonoBehaviour
     public Button attackBtn;
     public bool isAttack = false;
     public GameObject gameOverUI;
+    public GamePauseUI gamePauseUI;
 
     private void Start() {
+        pauseBtn.onClick.AddListener(() => {
+            gamePauseUI.gameObject.SetActive(true);
+            GameController.manager.IsGamePause(true);           
+        });
+
         jumpBtn.onClick .AddListener(() => {
             isJump = true;
         });
@@ -26,7 +33,7 @@ public class GameUI : MonoBehaviour
     }
 
     private void Update() {
-        scoreText.text = UIManager.manager.score.ToString();
+        scoreText.text = GameController.manager.score.ToString();
     }
 
     public void GameOver() {       

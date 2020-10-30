@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GamController : MonoBehaviour
+public class GameController : MonoBehaviour
 {
-    public static GamController manager = null;
+    public static GameController manager = null;
     public SystemSettingsInfo settingsInfo;
+    public bool isPause = false;
+    public int score = 0;
 
     private void Awake() {
         if (manager == null) {
@@ -28,5 +30,25 @@ public class GamController : MonoBehaviour
             settingsInfo.isPlayBackgroundMusic = true;
             SystemSettingsInfo.SaveSystemInfo(settingsInfo);
         }        
+    }
+
+    public void IsGamePause(bool isPause) {
+        this.isPause = isPause;
+        AnimMan.manager.isPlayerDead = false;
+        PlayerCtr.manager.IsPlayerPause();
+        UIManager.manager.IsGamePause();
+    }
+
+    public void GameOver() {
+        AnimMan.manager.isPlayerDead = true;
+        AudioMan.manager.PlayGameOverAudio();
+        UIManager.manager.GameOver();
+    }
+
+    public void GameRestart() {
+        AnimMan.manager.isPlayerDead = false;
+        PlayerCtr.manager.SetPlayerBornPos();
+        UIManager.manager.GameRestart();
+        score = 0;
     }
 }

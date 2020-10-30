@@ -21,45 +21,45 @@ public class SystemSettingsUI : MonoBehaviour {
             });
         }
 
-        if (GamController.manager.settingsInfo.isPlayAudio) {
+        if (GameController.manager.settingsInfo.isPlayAudio) {
             audioBtn.GetComponent<Image>().sprite = audioSprites[0];
         } else {
             audioBtn.GetComponent<Image>().sprite = audioSprites[1];
         }
 
-        if (GamController.manager.settingsInfo.isPlayBackgroundMusic) {
+        if (GameController.manager.settingsInfo.isPlayBackgroundMusic) {
             musicBtn.GetComponent<Image>().sprite = musicSprites[0];
         } else {
             musicBtn.GetComponent<Image>().sprite = musicSprites[1];
         }
 
         audioBtn.onClick.AddListener(() => {
-            GamController.manager.settingsInfo.isPlayAudio = !GamController.manager.settingsInfo.isPlayAudio;
-            if (GamController.manager.settingsInfo.isPlayAudio) {
+            GameController.manager.settingsInfo.isPlayAudio = !GameController.manager.settingsInfo.isPlayAudio;
+            if (GameController.manager.settingsInfo.isPlayAudio) {
                 audioBtn.GetComponent<Image>().sprite = audioSprites[0];
             } else {
                 audioBtn.GetComponent<Image>().sprite = audioSprites[1];
             }
-            AudioMan.manager.IsPlayAudio(GamController.manager.settingsInfo.isPlayAudio);
+            AudioMan.manager.IsPlayAudio(GameController.manager.settingsInfo.isPlayAudio);
             SaveSettings();
         });
 
         musicBtn.onClick.AddListener(() => {
-            GamController.manager.settingsInfo.isPlayBackgroundMusic = !GamController.manager.settingsInfo.isPlayBackgroundMusic;
-            if (GamController.manager.settingsInfo.isPlayBackgroundMusic) {
+            GameController.manager.settingsInfo.isPlayBackgroundMusic = !GameController.manager.settingsInfo.isPlayBackgroundMusic;
+            if (GameController.manager.settingsInfo.isPlayBackgroundMusic) {
                 musicBtn.GetComponent<Image>().sprite = musicSprites[0];
             } else {
                 musicBtn.GetComponent<Image>().sprite = musicSprites[1];
             }
-            AudioMan.manager.IsPlayBackgroundMusic(GamController.manager.settingsInfo.isPlayBackgroundMusic);
+            AudioMan.manager.IsPlayBackgroundMusic(GameController.manager.settingsInfo.isPlayBackgroundMusic);
             SaveSettings();
         });
     }
 
     private SystemSettingsInfo GetCurrentInfo() {
         SystemSettingsInfo info = new SystemSettingsInfo();
-        info.isPlayAudio = GamController.manager.settingsInfo.isPlayAudio;
-        info.isPlayBackgroundMusic = GamController.manager.settingsInfo.isPlayBackgroundMusic;      
+        info.isPlayAudio = GameController.manager.settingsInfo.isPlayAudio;
+        info.isPlayBackgroundMusic = GameController.manager.settingsInfo.isPlayBackgroundMusic;      
         return info;
     }
 

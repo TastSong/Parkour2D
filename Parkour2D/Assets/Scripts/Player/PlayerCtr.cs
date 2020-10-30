@@ -10,13 +10,12 @@ public class PlayerCtr : MonoBehaviour {
     public float flyTime = 3f;
     public float speedTime = 4f;
 
-
     private Rigidbody2D rig;
     private float startGravity;
     private bool isOnGround = true;
     private Vector3 playerBornPos;
     private Vector3 playerFlyPos;
-    
+    private bool isPause = false;
     private bool isFly = false;
     private float jumpOffsetTime = 0.2f;
     private float jumpOffsetTimer;
@@ -42,7 +41,9 @@ public class PlayerCtr : MonoBehaviour {
     }
 
     private void Update() {
-        // 二连跳 第一跳
+        // -----------------
+
+        // --------------------- 二连跳 第一跳 ---------------------
         float xboxLRT = Input.GetAxis(XBOXInput.xboxLRT);
         if ((xboxLRT > XBOXInput.detectionThreshold || UIManager.manager.gameUI.isJump) &&
             isOnGround && !AnimMan.manager.isPlayerDead && !isFly) {
@@ -76,9 +77,9 @@ public class PlayerCtr : MonoBehaviour {
         if (AnimMan.manager.isPlayerJump && isOnGround) {
             AnimMan.manager.isPlayerJump = false;
         }
-        //  ------------------end-------------
+        //  --------------------- end ---------------------
 
-        // 攻击
+        // --------------------- 攻击 ---------------------
         float xboxA = Input.GetAxis(XBOXInput.xboxA);
         if ((xboxA > XBOXInput.detectionThreshold || UIManager.manager.gameUI.isAttack) &&
             !AnimMan.manager.isPlayerAttack && !AnimMan.manager.isPlayerDead) {
@@ -89,7 +90,7 @@ public class PlayerCtr : MonoBehaviour {
         if (swordSpace.activeSelf && !AnimMan.manager.isPlayerAttack) {
             swordSpace.SetActive(false);
         }
-        // ------------------end-------------
+        // --------------------- end ---------------------
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -98,7 +99,7 @@ public class PlayerCtr : MonoBehaviour {
         }
 
         if (collision.collider.tag == "Border") {
-            UIManager.manager.GameOver();
+            GameController.manager.GameOver();
         }
     }
 
@@ -106,15 +107,15 @@ public class PlayerCtr : MonoBehaviour {
         if (collision.tag == "Coin") {
             collision.gameObject.SetActive(false);
             AudioMan.manager.PlayCoinAudio();
-            UIManager.manager.score++;
+            GameController.manager.score++;
         }
 
         if (swordSpace.activeSelf && collision.tag == "Enemy") {
-            UIManager.manager.score += enemyReward;
+            GameController.manager.score += enemyReward;
             AudioMan.manager.PlayPlayerAttackAudio();
             collision.gameObject.SetActive(false);
         } else if (!swordSpace.activeSelf && collision.tag == "Enemy") {
-            UIManager.manager.GameOver();
+            GameController.manager.GameOver();
         }
 
         if (collision.tag == "FlyGift") {
@@ -149,7 +150,7 @@ public class PlayerCtr : MonoBehaviour {
         isOnGround = false;
         AudioMan.manager.PlayFlyAudio();
         AnimMan.manager.isPlayerFly = true;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(flyTime);
         isFly = false;
         UIManager.manager.gameUI.SetFlySkill(isFly);
         sword.SetActive(false);
@@ -165,4 +166,15 @@ public class PlayerCtr : MonoBehaviour {
         UIManager.manager.SetGameSpeed();
         UIManager.manager.gameUI.SetSpeedSkill(false);
     }
+
+    public void IsPlayerPause() {
+        Debug.Log("+++++++++++++++++++++Player isPause " + isPause);
+        isPause = GameController.manager.isPause;
+        if (isPause) {
+            rig.gravityScale = 0;
+        } else {
+            rig.gravityScale = startGravity;
+        }
+    }
+
 }

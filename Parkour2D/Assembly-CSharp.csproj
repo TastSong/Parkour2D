@@ -71,8 +71,9 @@
     <Compile Include="Assets\Scripts\Game\BgCtr.cs" />
     <Compile Include="Assets\Scripts\Game\CoinsItem.cs" />
     <Compile Include="Assets\Scripts\Game\EnemyItem.cs" />
-    <Compile Include="Assets\Scripts\Game\GamController.cs" />
+    <Compile Include="Assets\Scripts\Game\GameController.cs" />
     <Compile Include="Assets\Scripts\Game\GameOverUI.cs" />
+    <Compile Include="Assets\Scripts\Game\GamePauseUI.cs" />
     <Compile Include="Assets\Scripts\Game\GameUI.cs" />
     <Compile Include="Assets\Scripts\Game\GiftItem.cs" />
     <Compile Include="Assets\Scripts\Game\GroundCtr.cs" />

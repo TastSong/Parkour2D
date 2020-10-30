@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameOverUI : MonoBehaviour
+public class GamePauseUI : MonoBehaviour
 {
     public Button continueBtn;
     public GameOverAnim gameOverAnim;
 
     private void Start() {
         continueBtn.onClick.AddListener(() => {
-            GameController.manager.GameRestart();
+            GameController.manager.IsGamePause(false);
+            gameObject.SetActive(false);
         });
     }
 
