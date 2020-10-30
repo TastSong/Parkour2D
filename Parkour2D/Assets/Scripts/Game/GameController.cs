@@ -53,13 +53,18 @@ public class GameController : MonoBehaviour
         UIManager.manager.GameOver();
     }
 
+    public void GameStart() {
+        isGameOver = false;
+        isInGameTime = true;
+        curPlayerLife = playerLife;
+    }
+
     public void GameRestart() {
         isGameOver = false;
+        score = 0;
         AnimMan.manager.isPlayerDead = false;
         PlayerCtr.manager.SetPlayerBornPos();
-        UIManager.manager.GameRestart();
-        score = 0;
-        UIManager.manager.gameUI.InitUI();
+        UIManager.manager.GameRestart();      
     }
 
     public void GameContinue() {
@@ -74,5 +79,13 @@ public class GameController : MonoBehaviour
         } else {
             GameContinue();
         }
+    }
+
+    public void GameExit() {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }

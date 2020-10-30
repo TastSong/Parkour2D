@@ -5,12 +5,17 @@ using UnityEngine.UI;
 
 public class GameOverUI : MonoBehaviour
 {
-    public Button continueBtn;
+    public Button restartBtn;
+    public Button exitBtn;
     public GameOverAnim gameOverAnim;
 
     private void Start() {
-        continueBtn.onClick.AddListener(() => {
+        restartBtn.onClick.AddListener(() => {
             GameController.manager.GameRestart();
+        });
+
+        exitBtn.onClick.AddListener(() => {
+            GameController.manager.GameExit();
         });
     }
 
@@ -18,7 +23,7 @@ public class GameOverUI : MonoBehaviour
         float xboxA = Input.GetAxis(XBOXInput.xboxA);
         if (xboxA > XBOXInput.detectionThreshold && gameOverAnim.isAnimOver) {
             gameOverAnim.isAnimOver = false;
-            continueBtn.onClick.Invoke();
+            restartBtn.onClick.Invoke();
         }
     }
 }

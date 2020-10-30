@@ -26,14 +26,12 @@ public class GameUI : MonoBehaviour
     }
 
     public void InitUI() {
-        GameController.manager.isGameOver = false;
+        GameController.manager.GameStart();
         gameTimer = GameController.manager.gameTime;
-        GameController.manager.isInGameTime = true;
-        GameController.manager.curPlayerLife = GameController.manager.playerLife;
         for (int i = 0; i < GameController.manager.playerLife; i++) {
             lifeImages[i].gameObject.SetActiveFast(GameController.manager.curPlayerLife > i);
         }
-        gameTimeText.text = gameTimer.ToString();
+        gameTimeText.text = "<color=#3D5E0F>" + gameTimer.ToString() + "″</color>";
         scoreText.text = GameController.manager.score.ToString();
     }
 
@@ -57,13 +55,17 @@ public class GameUI : MonoBehaviour
 
     private IEnumerator GameTime() {
         while (true) {
-            gameTimeText.text = gameTimer.ToString();
+            if(gameTimer > 30) {
+                gameTimeText.text = "<color=#3D5E0F>" + gameTimer.ToString() + "″</color>";
+            } else {
+                gameTimeText.text = "<color=#9C0F14>" + gameTimer.ToString() + "″</color>";
+            }
             yield return new WaitForSecondsRealtime(1f);
             if (!GameController.manager.isGameOver) {
                 gameTimer -= 1;
             }          
             if (gameTimer <= 0) {
-                gameTimeText.text = gameTimer.ToString();
+                gameTimeText.text = "<color=#9C0F14>" + gameTimer.ToString() + "″</color>";
                 GameController.manager.isInGameTime = false;
                 GameController.manager.CheckGameOver();
                 break;
@@ -84,6 +86,7 @@ public class GameUI : MonoBehaviour
     }
 
     public void GameRestart() {
+        InitUI();
         gameOverUI.gameObject.SetActiveFast(false);        
     }
 

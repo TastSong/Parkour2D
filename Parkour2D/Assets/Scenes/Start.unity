@@ -158,8 +158,13 @@ MonoBehaviour:
   settingsInfo:
     isPlayAudio: 0
     isPlayBackgroundMusic: 0
+  isGameOver: 0
   isPause: 0
   score: 0
+  gameTime: 60
+  isInGameTime: 1
+  playerLife: 3
+  curPlayerLife: 0
 --- !u!1 &212614692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,8 +1187,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 628, y: -223}
-  m_SizeDelta: {x: 440, y: 124}
+  m_AnchoredPosition: {x: 736, y: -302}
+  m_SizeDelta: {x: 377.97998, y: 188.98999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1432921969
 MonoBehaviour:
