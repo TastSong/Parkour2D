@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
-public class Login : MonoBehaviour {
+public class LoginUI : MonoBehaviour {
     public Button startBtn;
+    public Text userNameText;
     public Slider loadSceneSlider;
     public Button settingsBtn;
     public SystemSettingsUI settingsUI;
@@ -15,6 +17,8 @@ public class Login : MonoBehaviour {
     private bool isStart = false;
 
     private void Start() {
+        userNameText.DOText("Welcome : <b>" + SystemInfo.deviceName + "</b>", 2f);
+
         settingsBtn.onClick.AddListener(() => {            
             settingsUI.gameObject.SetActive(true);
         });

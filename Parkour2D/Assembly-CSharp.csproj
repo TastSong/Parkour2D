@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Anim\AnimMan.cs" />
+    <Compile Include="Assets\Scripts\Anim\CircularRingAnim.cs" />
     <Compile Include="Assets\Scripts\Anim\GameOverAnim.cs" />
     <Compile Include="Assets\Scripts\Anim\SequenceFrameAnim.cs" />
     <Compile Include="Assets\Scripts\Anim\SettingsAnim.cs" />
@@ -78,9 +79,10 @@
     <Compile Include="Assets\Scripts\Game\GroundItem.cs" />
     <Compile Include="Assets\Scripts\Game\SystemSettingsUI.cs" />
     <Compile Include="Assets\Scripts\Game\UIManager.cs" />
-    <Compile Include="Assets\Scripts\Login\Login.cs" />
+    <Compile Include="Assets\Scripts\Login\LoginUI.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerCtr.cs" />
     <None Include="Assets\Shader\CircleSeletor.shader" />
+    <None Include="Assets\Shader\CircularRing.shader" />
     <Reference Include="Unity.2D.Animation.Runtime">
       <HintPath>F:/Parkour2D/Parkour2D/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
     </Reference>

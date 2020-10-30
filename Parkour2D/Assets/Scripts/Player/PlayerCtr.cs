@@ -7,15 +7,18 @@ public class PlayerCtr : MonoBehaviour {
     public GameObject swordSpace;
     public GameObject sword;
     public float jumpForce = 300f;
-    public float jumpOffsetTime = 0.2f;
+    public float flyTime = 3f;
+    public float speedTime = 4f;
+
 
     private Rigidbody2D rig;
     private float startGravity;
     private bool isOnGround = true;
     private Vector3 playerBornPos;
     private Vector3 playerFlyPos;
-    private float flyTime = 3f;
+    
     private bool isFly = false;
+    private float jumpOffsetTime = 0.2f;
     private float jumpOffsetTimer;
     private bool isFirstJumpStart = false;
     private bool isCanSecondJump = false;
@@ -138,6 +141,7 @@ public class PlayerCtr : MonoBehaviour {
 
     private IEnumerator PlayerFly() {
         isFly = true;
+        UIManager.manager.gameUI.SetFlySkill(isFly);
         rig.velocity = Vector2.zero;
         sword.SetActive(true);
         transform.position = playerFlyPos;
@@ -147,6 +151,7 @@ public class PlayerCtr : MonoBehaviour {
         AnimMan.manager.isPlayerFly = true;
         yield return new WaitForSeconds(3f);
         isFly = false;
+        UIManager.manager.gameUI.SetFlySkill(isFly);
         sword.SetActive(false);
         rig.gravityScale = startGravity;
         transform.position = playerBornPos;
@@ -155,7 +160,9 @@ public class PlayerCtr : MonoBehaviour {
 
     private IEnumerator PlayerSpeedup() {
         UIManager.manager.SetGameSpeed(1.2f, 1.4f);
-        yield return new WaitForSeconds(4f);
+        UIManager.manager.gameUI.SetSpeedSkill(true);
+        yield return new WaitForSeconds(speedTime);
         UIManager.manager.SetGameSpeed();
+        UIManager.manager.gameUI.SetSpeedSkill(false);
     }
 }
