@@ -7,7 +7,12 @@ public class GameOverUI : MonoBehaviour
 {
     public Button restartBtn;
     public Button exitBtn;
+    public Text bestScore;
     public GameOverAnim gameOverAnim;
+
+    private void OnEnable() {
+        bestScore.text = GameController.manager.settingsInfo.bestScore.ToString();
+    }
 
     private void Start() {
         restartBtn.onClick.AddListener(() => {

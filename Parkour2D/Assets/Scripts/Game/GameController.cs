@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour
             settingsInfo = new SystemSettingsInfo();
             settingsInfo.isPlayAudio = true;
             settingsInfo.isPlayBackgroundMusic = true;
+            settingsInfo.bestScore = 0;
             SystemSettingsInfo.SaveSystemInfo(settingsInfo);
         }        
     }
@@ -48,6 +49,7 @@ public class GameController : MonoBehaviour
 
     private void GameOver() {
         isGameOver = true;
+        SaveScore();
         AnimMan.manager.isPlayerDead = true;
         AudioMan.manager.PlayGameOverAudio();
         UIManager.manager.GameOver();
@@ -82,10 +84,22 @@ public class GameController : MonoBehaviour
     }
 
     public void GameExit() {
+        SaveScore();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif
+    }
+
+    private void SaveScore() {
+        SystemSettingsInfo info = settingsInfo;
+        if (GameController.manager.score > GameController.manager.settingsInfo.bestScore) {
+            info.bestScore = score;
+            settingsInfo.bestScore = score;
+        } else {
+            info.bestScore = settingsInfo.bestScore;
+        }
+        SystemSettingsInfo.SaveSystemInfo(info);
     }
 }

@@ -59,7 +59,13 @@ public class SystemSettingsUI : MonoBehaviour {
     private SystemSettingsInfo GetCurrentInfo() {
         SystemSettingsInfo info = new SystemSettingsInfo();
         info.isPlayAudio = GameController.manager.settingsInfo.isPlayAudio;
-        info.isPlayBackgroundMusic = GameController.manager.settingsInfo.isPlayBackgroundMusic;      
+        info.isPlayBackgroundMusic = GameController.manager.settingsInfo.isPlayBackgroundMusic;  
+        if (GameController.manager.score > GameController.manager.settingsInfo.bestScore) {
+            info.bestScore = GameController.manager.score;
+            GameController.manager.settingsInfo.bestScore = GameController.manager.score;
+        } else {
+            info.bestScore = GameController.manager.settingsInfo.bestScore;
+        }
         return info;
     }
 
@@ -73,6 +79,7 @@ public class SystemSettingsUI : MonoBehaviour {
 public class SystemSettingsInfo : ISerializable {
     public bool isPlayAudio;
     public bool isPlayBackgroundMusic;
+    public int bestScore;
     static string fileName = "setting.stf";
 
     public SystemSettingsInfo() {
@@ -81,11 +88,13 @@ public class SystemSettingsInfo : ISerializable {
     private SystemSettingsInfo(SerializationInfo info, StreamingContext ctxt) {
         isPlayAudio = info.GetBoolean("IsPlayAudio");
         isPlayBackgroundMusic = info.GetBoolean("IsPlayBackgroundMusic");
+        bestScore = info.GetInt32("BestScore");
     }
 
     public void GetObjectData(SerializationInfo info, StreamingContext ctxt) {
         info.AddValue("IsPlayAudio", isPlayAudio);
         info.AddValue("IsPlayBackgroundMusic", isPlayBackgroundMusic);
+        info.AddValue("BestScore", bestScore);
     }
 
     public static void SaveSystemInfo(SystemSettingsInfo ss) {
@@ -117,11 +126,13 @@ public class SystemSettingsInfo : ISerializable {
         SystemSettingsInfo info = new SystemSettingsInfo();
         info.isPlayAudio = isPlayAudio;
         info.isPlayBackgroundMusic = isPlayBackgroundMusic;
+        info.bestScore = bestScore;
         return info;
     }
 
     public bool EqualTo(SystemSettingsInfo info) {
         return info.isPlayAudio == isPlayAudio
-               && info.isPlayBackgroundMusic == isPlayBackgroundMusic;
+               && info.isPlayBackgroundMusic == isPlayBackgroundMusic
+               && info.bestScore == bestScore;
     }
 }
