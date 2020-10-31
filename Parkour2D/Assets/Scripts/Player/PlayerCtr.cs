@@ -41,9 +41,7 @@ public class PlayerCtr : MonoBehaviour {
     }
 
     private void Update() {
-        // -----------------
-
-        // --------------------- 二连跳 第一跳 ---------------------
+       // --------------------- 二连跳 第一跳 ---------------------
         float xboxLRT = Input.GetAxis(XBOXInput.xboxLRT);
         if ((xboxLRT > XBOXInput.detectionThreshold || UIManager.manager.gameUI.isJump) &&
             isOnGround && !AnimMan.manager.isPlayerDead && !isFly) {
@@ -85,12 +83,19 @@ public class PlayerCtr : MonoBehaviour {
             !AnimMan.manager.isPlayerAttack && !AnimMan.manager.isPlayerDead) {
             AnimMan.manager.isPlayerAttack = true;
             swordSpace.SetActiveFast(true);
+            AudioMan.manager.PlayPlayerAttackAudio();
             UIManager.manager.gameUI.isAttack = false;
         }
         if (swordSpace.activeSelf && !AnimMan.manager.isPlayerAttack) {
             swordSpace.SetActiveFast(false);
         }
         // --------------------- end ---------------------
+
+        // 检测Xbox是否连接
+        if (!GameController.manager.isConnectXbox && 
+            (xboxLRT > XBOXInput.detectionThreshold || xboxA > XBOXInput.detectionThreshold)) {
+            GameController.manager.isConnectXbox = true;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -113,7 +118,6 @@ public class PlayerCtr : MonoBehaviour {
 
         if (swordSpace.activeSelf && collision.tag == "Enemy") {
             GameController.manager.score += enemyReward;
-            AudioMan.manager.PlayPlayerAttackAudio();
             collision.gameObject.SetActiveFast(false);
         } else if (!swordSpace.activeSelf && collision.tag == "Enemy") {
             GameController.manager.curPlayerLife -= 1;

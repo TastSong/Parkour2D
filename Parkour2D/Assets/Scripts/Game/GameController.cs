@@ -8,9 +8,9 @@ public class GameController : MonoBehaviour
     public SystemSettingsInfo settingsInfo;
     public bool isGameOver = false;
     public bool isPause = false;
+    public bool isConnectXbox = false;
     public int score = 0;
-    public int gameTime = 60;
-    public bool isInGameTime = true;
+    public float gameTime = 60;
     public int playerLife = 3;
     public int curPlayerLife;
 
@@ -58,7 +58,6 @@ public class GameController : MonoBehaviour
 
     public void GameStart() {
         isGameOver = false;
-        isInGameTime = true;
         curPlayerLife = playerLife;
     }
 
@@ -77,7 +76,7 @@ public class GameController : MonoBehaviour
     }
 
     public void CheckGameOver() {
-        if (curPlayerLife <= 0 || !isInGameTime) {
+        if (curPlayerLife <= 0 || isGameOver) {
             GameOver();
         } else {
             GameContinue();

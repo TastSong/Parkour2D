@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 // Game场景UI显示
-public class GameUI : MonoBehaviour
-{
+public class GameUI : MonoBehaviour {
     public Button pauseBtn;
     public Image flySkill;
     public Image speedSkill;
     public Text gameTimeText;
     public Image[] lifeImages;
+    public Image xboxImage;
     public Text scoreText;
     public Button jumpBtn;
     public bool isJump = false;
@@ -19,9 +20,13 @@ public class GameUI : MonoBehaviour
     public GameOverUI gameOverUI;
     public GamePauseUI gamePauseUI;
 
-    private int gameTimer;
+    private float gameTimer;
+    private float checkConnectXboxTimer;
 
     private void OnEnable() {
+        checkConnectXboxTimer = 60;
+        xboxImage.gameObject.SetActiveFast(false);
+        StartCoroutine(CheckConnectXBOX());
         InitUI();
     }
 
@@ -39,42 +44,43 @@ public class GameUI : MonoBehaviour
         pauseBtn.onClick.AddListener(() => {
             gamePauseUI.gameObject.SetActiveFast(true);
             gamePauseUI.scoreText.text = GameController.manager.score.ToString();
-            GameController.manager.IsGamePause(true);                
+            GameController.manager.IsGamePause(true);
         });
 
-        jumpBtn.onClick .AddListener(() => {
+        jumpBtn.onClick.AddListener(() => {
             isJump = true;
         });
 
         attackBtn.onClick.AddListener(() => {
             isAttack = true;
         });
-
-        StartCoroutine(GameTime());
-    }
-
-    private IEnumerator GameTime() {
-        while (true) {
-            if(gameTimer > 30) {
-                gameTimeText.text = "<color=#3D5E0F>" + gameTimer.ToString() + "″</color>";
-            } else {
-                gameTimeText.text = "<color=#9C0F14>" + gameTimer.ToString() + "″</color>";
-            }
-            yield return new WaitForSecondsRealtime(1f);
-            if (!GameController.manager.isGameOver) {
-                gameTimer -= 1;
-            }          
-            if (gameTimer <= 0) {
-                gameTimeText.text = "<color=#9C0F14>" + gameTimer.ToString() + "″</color>";
-                GameController.manager.isInGameTime = false;
-                GameController.manager.CheckGameOver();
-                break;
-            }
-        }
     }
 
     private void Update() {
         scoreText.text = GameController.manager.score.ToString();
+        SetGameTime();
+
+        float xboxY = Input.GetAxis(XBOXInput.xboxY);
+        if (xboxY > XBOXInput.detectionThreshold) {
+            pauseBtn.onClick.Invoke();
+        }
+    }
+
+    private void SetGameTime() {
+        if (!GameController.manager.isGameOver) {           
+            if (gameTimer > 30) {
+                gameTimeText.text = "<color=#3D5E0F>" + ((int)gameTimer).ToString() + "″</color>";
+            } else if (gameTimer > 0 && gameTimer <= 30) {
+                gameTimeText.text = "<color=#9C0F14>" + ((int)gameTimer).ToString() + "″</color>";
+            } else if (gameTimer <= 0){
+                gameTimeText.text = "<color=#9C0F14>" + ((int)gameTimer).ToString() + "″</color>";
+                GameController.manager.isGameOver = true;
+                Debug.Log("+++++++++++++++isGameOver " + GameController.manager.isGameOver);
+                GameController.manager.CheckGameOver();
+            }
+
+            gameTimer -= Time.deltaTime;
+        }
     }
 
     public void GameOver() {
@@ -87,7 +93,7 @@ public class GameUI : MonoBehaviour
 
     public void GameRestart() {
         InitUI();
-        gameOverUI.gameObject.SetActiveFast(false);        
+        gameOverUI.gameObject.SetActiveFast(false);
     }
 
     public void GameContinue() {
@@ -102,5 +108,16 @@ public class GameUI : MonoBehaviour
 
     public void SetSpeedSkill(bool isShow) {
         speedSkill.gameObject.SetActiveFast(isShow);
+    }
+
+    private IEnumerator CheckConnectXBOX() {       
+        while (checkConnectXboxTimer > 0) {          
+            if (GameController.manager.isConnectXbox) {
+                xboxImage.gameObject.SetActiveFast(true);
+                break;
+            }
+            checkConnectXboxTimer -= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
     }
 }

@@ -32,5 +32,11 @@ public class GameOverUI : MonoBehaviour
             gameOverAnim.isAnimOver = false;
             restartBtn.onClick.Invoke();
         }
+
+        float xboxB = Input.GetAxis(XBOXInput.xboxB);
+        if (xboxB > XBOXInput.detectionThreshold && gameOverAnim.isAnimOver) {
+            gameOverAnim.isAnimOver = false;
+            exitBtn.onClick.Invoke();
+        }
     }
 }

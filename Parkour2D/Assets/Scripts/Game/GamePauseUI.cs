@@ -18,12 +18,20 @@ public class GamePauseUI : MonoBehaviour
         exitBtn.onClick.AddListener(() => {
             GameController.manager.GameExit();
         });
+
+
     }
 
     private void Update() {
+        
         float xboxA = Input.GetAxis(XBOXInput.xboxA);
-        if (xboxA > XBOXInput.detectionThreshold) {
+        if (xboxA > XBOXInput.detectionThreshold ) {
             continueBtn.onClick.Invoke();
+        }
+
+        float xboxB = Input.GetAxis(XBOXInput.xboxB);
+        if (xboxB > XBOXInput.detectionThreshold ) {
+            exitBtn.onClick.Invoke();
         }
     }
 }
