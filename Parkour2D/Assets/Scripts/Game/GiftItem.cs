@@ -8,7 +8,7 @@ public class GiftItem : MonoBehaviour
 
     private void OnEnable() {
         for (int i = 0; i < gifts.Length; i++) {
-            gifts[i].SetActive(true);
+            gifts[i].SetActiveFast(true);
         }
     }
 }

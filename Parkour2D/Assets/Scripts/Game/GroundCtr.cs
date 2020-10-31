@@ -23,7 +23,8 @@ public class GroundCtr : MonoBehaviour {
     private void Update() {
         if (!isStopGroundMove) {
             for (int i = 0; i < GroundItems.Length; i++) {
-                GroundItems[i].gameObject.transform.position = new Vector3(GroundItems[i].gameObject.transform.position.x - speed * Time.deltaTime, itemPosY, itemPosZ);
+                GroundItems[i].gameObject.transform.position = 
+                    new Vector3(GroundItems[i].gameObject.transform.position.x - speed * Time.deltaTime * 0.8f, itemPosY, itemPosZ);
                 if (GroundItems[i].gameObject.transform.position.x < -itemPosX) {
                     GroundItems[i].gameObject.transform.position = new Vector3(itemPosX, itemPosY, itemPosZ);
                     GroundItems[i].ChangePlatform();

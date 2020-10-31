@@ -12,7 +12,7 @@ public class GamePauseUI : MonoBehaviour
     private void Start() {
         continueBtn.onClick.AddListener(() => {
             GameController.manager.IsGamePause(false);
-            gameObject.SetActive(false);
+            gameObject.SetActiveFast(false);
         });
 
         exitBtn.onClick.AddListener(() => {

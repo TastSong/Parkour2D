@@ -23,7 +23,8 @@ public class BgCtr : MonoBehaviour {
     private void Update() {
         if (!isStopBgMove) {
             for (int i = 0; i < bgGo.Length; i++) {
-                bgGo[i].transform.position = new Vector3(bgGo[i].transform.position.x - speed * Time.deltaTime, bgStartPosY, bgStartPosZ);
+                bgGo[i].transform.position = 
+                    new Vector3(bgGo[i].transform.position.x - speed * Time.deltaTime * 0.8f, bgStartPosY, bgStartPosZ);
                 if (bgGo[i].transform.position.x < -bgStartPosX) {
                     bgGo[i].transform.position = new Vector3(bgStartPosX, bgStartPosY, bgStartPosZ);
                 }

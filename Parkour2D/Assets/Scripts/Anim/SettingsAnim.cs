@@ -21,7 +21,7 @@ public class SettingsAnim : MonoBehaviour
         bg.transform.localPosition = startPos;
         pregross = 0;
         bg.materialForRendering.SetFloat("_Percentage", pregross);
-        btns.SetActive(false);
+        btns.SetActiveFast(false);
 
         PlayAnim();
     }
@@ -38,7 +38,7 @@ public class SettingsAnim : MonoBehaviour
         sequence.Append(bg.transform.DOLocalPath(waypoints, duration: animTime, pathType: PathType.Linear, resolution: resolution).SetOptions(false));
         sequence.Join(DOTween.To(() => pregross, x => pregross = x, 0.5f, animTime));
         sequence.OnComplete(() => {
-            btns.SetActive(true);
+            btns.SetActiveFast(true);
         });
     }
 }

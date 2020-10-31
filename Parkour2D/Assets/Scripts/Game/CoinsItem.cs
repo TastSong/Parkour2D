@@ -8,7 +8,7 @@ public class CoinsItem : MonoBehaviour
 
     private void OnEnable() {
         for (int i = 0; i < coins.Length; i++) {
-            coins[i].SetActive(true);
+            coins[i].SetActiveFast(true);
         }
     }
 }

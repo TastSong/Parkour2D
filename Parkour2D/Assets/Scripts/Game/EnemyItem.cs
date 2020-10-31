@@ -8,7 +8,7 @@ public class EnemyItem : MonoBehaviour
 
     private void OnEnable() {
         for (int i = 0; i < enemys.Length; i++) {
-            enemys[i].SetActive(true);
+            enemys[i].SetActiveFast(true);
         }
     }
 }

@@ -34,7 +34,7 @@ public class PlayerCtr : MonoBehaviour {
     private void Start() {
         rig = GetComponent<Rigidbody2D>();
         startGravity = rig.gravityScale;
-        swordSpace.SetActive(false);
+        swordSpace.SetActiveFast(false);
         playerBornPos = new Vector3(transform.position.x, 0, transform.position.z);
         playerFlyPos = playerBornPos + new Vector3(0, 0.6f, 0);
         jumpOffsetTimer = jumpOffsetTime;
@@ -84,11 +84,11 @@ public class PlayerCtr : MonoBehaviour {
         if ((xboxA > XBOXInput.detectionThreshold || UIManager.manager.gameUI.isAttack) &&
             !AnimMan.manager.isPlayerAttack && !AnimMan.manager.isPlayerDead) {
             AnimMan.manager.isPlayerAttack = true;
-            swordSpace.SetActive(true);
+            swordSpace.SetActiveFast(true);
             UIManager.manager.gameUI.isAttack = false;
         }
         if (swordSpace.activeSelf && !AnimMan.manager.isPlayerAttack) {
-            swordSpace.SetActive(false);
+            swordSpace.SetActiveFast(false);
         }
         // --------------------- end ---------------------
     }
@@ -106,7 +106,7 @@ public class PlayerCtr : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Coin") {
-            collision.gameObject.SetActive(false);
+            collision.gameObject.SetActiveFast(false);
             AudioMan.manager.PlayCoinAudio();
             GameController.manager.score++;
         }
@@ -114,19 +114,19 @@ public class PlayerCtr : MonoBehaviour {
         if (swordSpace.activeSelf && collision.tag == "Enemy") {
             GameController.manager.score += enemyReward;
             AudioMan.manager.PlayPlayerAttackAudio();
-            collision.gameObject.SetActive(false);
+            collision.gameObject.SetActiveFast(false);
         } else if (!swordSpace.activeSelf && collision.tag == "Enemy") {
             GameController.manager.curPlayerLife -= 1;
             GameController.manager.CheckGameOver();
         }
 
         if (collision.tag == "FlyGift") {
-            collision.gameObject.SetActive(false);
+            collision.gameObject.SetActiveFast(false);
             StartCoroutine(PlayerFly());
         }
 
         if (collision.tag == "SpeedupGift") {
-            collision.gameObject.SetActive(false);
+            collision.gameObject.SetActiveFast(false);
             StartCoroutine(PlayerSpeedup());
         }
     }
@@ -146,7 +146,7 @@ public class PlayerCtr : MonoBehaviour {
         isFly = true;
         UIManager.manager.gameUI.SetFlySkill(isFly);
         rig.velocity = Vector2.zero;
-        sword.SetActive(true);
+        sword.SetActiveFast(true);
         transform.position = playerFlyPos;
         rig.gravityScale = 0;
         isOnGround = false;
@@ -155,7 +155,7 @@ public class PlayerCtr : MonoBehaviour {
         yield return new WaitForSeconds(flyTime);
         isFly = false;
         UIManager.manager.gameUI.SetFlySkill(isFly);
-        sword.SetActive(false);
+        sword.SetActiveFast(false);
         rig.gravityScale = startGravity;
         transform.position = playerBornPos;
         AnimMan.manager.isPlayerFly = false;

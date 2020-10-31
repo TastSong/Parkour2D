@@ -8,10 +8,12 @@ public class GameOverUI : MonoBehaviour
     public Button restartBtn;
     public Button exitBtn;
     public Text bestScore;
+    public Image newBestIamge;
     public GameOverAnim gameOverAnim;
 
     private void OnEnable() {
         bestScore.text = GameController.manager.settingsInfo.bestScore.ToString();
+        newBestIamge.gameObject.SetActiveFast(GameController.manager.settingsInfo.bestScore == GameController.manager.score);
     }
 
     private void Start() {

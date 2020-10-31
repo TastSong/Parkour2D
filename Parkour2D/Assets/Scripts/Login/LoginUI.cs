@@ -20,7 +20,7 @@ public class LoginUI : MonoBehaviour {
         userNameText.DOText("Welcome : <b>" + SystemInfo.deviceName + "</b>", 2f);
 
         settingsBtn.onClick.AddListener(() => {            
-            settingsUI.gameObject.SetActive(true);
+            settingsUI.gameObject.SetActiveFast(true);
         });
 
         startBtn.onClick.AddListener(() => {

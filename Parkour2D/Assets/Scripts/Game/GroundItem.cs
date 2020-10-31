@@ -4,35 +4,41 @@ using System;
 public class GroundItem : MonoBehaviour
 {
     public GameObject[] leftPlatforms;
+    public GameObject[] midPlatforms;
     public GameObject[] rightPlatforms;
 
     private int leftPlatformNum;
+    private int midPlatformNum;
     private int rightPlatformNum;
     private System.Random random = new System.Random();
 
     private void Start() {
         leftPlatformNum = leftPlatforms.Length;
+        midPlatformNum = midPlatforms.Length;
         rightPlatformNum = rightPlatforms.Length;
     }
 
     public void ChangePlatform() {
         int leftNum = random.Next(0, leftPlatformNum);
+        int midNum = random.Next(0, midPlatformNum);
         int rightNum = random.Next(0, rightPlatformNum);
 
-        for (int i = 0; i < leftPlatformNum; i++) {
-            leftPlatforms[i].SetActive(false);
+        if (leftPlatformNum > 0) {
+            for (int i = 0; i < leftPlatformNum; i++) {
+                leftPlatforms[i].SetActiveFast(i == leftNum);
+            }
         }
 
-        for (int i = 0; i < rightPlatformNum; i++) {
-            rightPlatforms[i].SetActive(false);
+        if (midPlatformNum > 0) {
+            for (int i = 0; i < midPlatformNum; i++) {
+                midPlatforms[i].SetActiveFast(i == midNum);
+            }
         }
 
-        for (int i = 0; i < leftPlatformNum; i++) {
-            leftPlatforms[i].SetActive(i == leftNum);
-        }
-
-        for (int i = 0; i < rightPlatformNum; i++) {
-            rightPlatforms[i].SetActive(i == rightNum);
-        }
+        if (rightPlatformNum > 0) {
+            for (int i = 0; i < rightPlatformNum; i++) {
+                rightPlatforms[i].SetActiveFast(i == rightNum);
+            }
+        }      
     }
 }

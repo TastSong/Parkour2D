@@ -49,6 +49,7 @@ public class GameController : MonoBehaviour
 
     private void GameOver() {
         isGameOver = true;
+        // 更新最佳记录
         SaveScore();
         AnimMan.manager.isPlayerDead = true;
         AudioMan.manager.PlayGameOverAudio();

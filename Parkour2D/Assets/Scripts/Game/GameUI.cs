@@ -37,7 +37,7 @@ public class GameUI : MonoBehaviour
 
     private void Start() {
         pauseBtn.onClick.AddListener(() => {
-            gamePauseUI.gameObject.SetActive(true);
+            gamePauseUI.gameObject.SetActiveFast(true);
             gamePauseUI.scoreText.text = GameController.manager.score.ToString();
             GameController.manager.IsGamePause(true);                
         });
@@ -97,10 +97,10 @@ public class GameUI : MonoBehaviour
     }
 
     public void SetFlySkill(bool isShow) {
-        flySkill.gameObject.SetActive(isShow);
+        flySkill.gameObject.SetActiveFast(isShow);
     }
 
     public void SetSpeedSkill(bool isShow) {
-        speedSkill.gameObject.SetActive(isShow);
+        speedSkill.gameObject.SetActiveFast(isShow);
     }
 }

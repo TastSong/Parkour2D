@@ -17,7 +17,7 @@ public class SystemSettingsUI : MonoBehaviour {
     private void Start() {
         if (backBtn != null) {
             backBtn.onClick.AddListener(() => {
-                gameObject.SetActive(false);
+                gameObject.SetActiveFast(false);
             });
         }
 
