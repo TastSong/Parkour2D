@@ -14,6 +14,7 @@ public class CircularRingAnim : MonoBehaviour {
 
     private float animTime;
     private Image selfImage;
+    private float percentage;
 
     private void OnEnable() {
         if (skillType == SkillType.Fly) {
@@ -23,7 +24,12 @@ public class CircularRingAnim : MonoBehaviour {
         }
 
         selfImage = GetComponent<Image>();
-        selfImage.fillAmount = 1;
-        DOTween.To(() => selfImage.fillAmount, x => selfImage.fillAmount = x, 0f, animTime);
+        percentage = 0;
+        selfImage.materialForRendering.SetFloat("_Percentage", percentage);
+        DOTween.To(() => percentage, x => percentage = x, 360, animTime);
+    }
+
+    private void Update() {
+        selfImage.materialForRendering.SetFloat("_Percentage", percentage);
     }
 }
