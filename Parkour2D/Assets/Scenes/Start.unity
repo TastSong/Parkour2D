@@ -158,11 +158,12 @@ MonoBehaviour:
   settingsInfo:
     isPlayAudio: 0
     isPlayBackgroundMusic: 0
+    bestScore: 0
   isGameOver: 0
   isPause: 0
+  isConnectXbox: 0
   score: 0
   gameTime: 60
-  isInGameTime: 1
   playerLife: 3
   curPlayerLife: 0
 --- !u!1 &212614692
