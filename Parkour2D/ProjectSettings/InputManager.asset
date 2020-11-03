@@ -300,9 +300,9 @@ InputManager:
     negativeButton: 
     positiveButton: escape
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: escape
     gravity: 0
-    dead: 0
+    dead: 0.19
     sensitivity: 1
     snap: 1
     invert: 0
@@ -314,7 +314,7 @@ InputManager:
     descriptiveName: XBOXB
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: joystick button 1
     altNegativeButton: 
     altPositiveButton: joystick button 1
     gravity: 1000
@@ -330,7 +330,7 @@ InputManager:
     descriptiveName: XBOXA
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: joystick button 0
     altNegativeButton: 
     altPositiveButton: joystick button 0
     gravity: 1000
@@ -346,7 +346,7 @@ InputManager:
     descriptiveName: XBOXY
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: joystick button 3
     altNegativeButton: 
     altPositiveButton: joystick button 3
     gravity: 1000

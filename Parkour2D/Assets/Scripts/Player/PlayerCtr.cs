@@ -42,8 +42,7 @@ public class PlayerCtr : MonoBehaviour {
 
     private void Update() {
        // --------------------- 二连跳 第一跳 ---------------------
-        float xboxLRT = Input.GetAxis(XBOXInput.xboxLRT);
-        if ((xboxLRT > XBOXInput.detectionThreshold || UIManager.manager.gameUI.isJump) &&
+        if ((Input.GetAxisRaw(XBOXInput.xboxLRT) == 1 || UIManager.manager.gameUI.isJump) &&
             isOnGround && !AnimMan.manager.isPlayerDead && !isFly) {
             PlayerJump();
             isOnGround = false;
@@ -66,7 +65,7 @@ public class PlayerCtr : MonoBehaviour {
                 isCanSecondJump = false;
             }
         }
-        if ((xboxLRT > XBOXInput.detectionThreshold || UIManager.manager.gameUI.isJump) &&
+        if ((Input.GetAxisRaw(XBOXInput.xboxLRT) == 1 || UIManager.manager.gameUI.isJump) &&
             isCanSecondJump && !AnimMan.manager.isPlayerDead && !isFly) {
             PlayerJump();
             isCanSecondJump = false;
@@ -78,8 +77,7 @@ public class PlayerCtr : MonoBehaviour {
         //  --------------------- end ---------------------
 
         // --------------------- 攻击 ---------------------
-        float xboxA = Input.GetAxis(XBOXInput.xboxA);
-        if ((xboxA > XBOXInput.detectionThreshold || UIManager.manager.gameUI.isAttack) &&
+        if ((Input.GetButtonDown(XBOXInput.xboxA) || UIManager.manager.gameUI.isAttack) &&
             !AnimMan.manager.isPlayerAttack && !AnimMan.manager.isPlayerDead) {
             AnimMan.manager.isPlayerAttack = true;
             swordSpace.SetActiveFast(true);
@@ -93,7 +91,7 @@ public class PlayerCtr : MonoBehaviour {
 
         // 检测Xbox是否连接
         if (!GameController.manager.isConnectXbox && 
-            (xboxLRT > XBOXInput.detectionThreshold || xboxA > XBOXInput.detectionThreshold)) {
+            (Input.GetAxisRaw(XBOXInput.xboxLRT) == 1 || Input.GetButtonDown(XBOXInput.xboxA))) {
             GameController.manager.isConnectXbox = true;
         }
     }

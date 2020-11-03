@@ -24,13 +24,11 @@ public class GamePauseUI : MonoBehaviour
 
     private void Update() {
         
-        float xboxA = Input.GetAxis(XBOXInput.xboxA);
-        if (xboxA > XBOXInput.detectionThreshold ) {
+        if (Input.GetButtonDown(XBOXInput.xboxA)) {
             continueBtn.onClick.Invoke();
         }
 
-        float xboxB = Input.GetAxis(XBOXInput.xboxB);
-        if (xboxB > XBOXInput.detectionThreshold ) {
+        if (Input.GetButtonDown(XBOXInput.xboxB)) {
             exitBtn.onClick.Invoke();
         }
     }

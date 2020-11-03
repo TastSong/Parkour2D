@@ -31,8 +31,7 @@ public class LoginUI : MonoBehaviour {
     }
 
     private void Update() {
-        float xboxA = Input.GetAxis(XBOXInput.xboxA);
-        if (xboxA > XBOXInput.detectionThreshold && !isStart) {
+        if (Input.GetButtonDown(XBOXInput.xboxA) && !isStart) {
             startBtn.onClick.Invoke();
             isStart = true;
         }

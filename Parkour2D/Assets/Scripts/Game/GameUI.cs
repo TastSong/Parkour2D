@@ -60,8 +60,7 @@ public class GameUI : MonoBehaviour {
         scoreText.text = GameController.manager.score.ToString();
         SetGameTime();
 
-        float xboxY = Input.GetAxis(XBOXInput.xboxY);
-        if (xboxY > XBOXInput.detectionThreshold) {
+        if (Input.GetButtonDown(XBOXInput.xboxY)) {
             pauseBtn.onClick.Invoke();
         }
     }

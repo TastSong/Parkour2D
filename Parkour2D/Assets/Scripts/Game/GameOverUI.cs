@@ -27,14 +27,12 @@ public class GameOverUI : MonoBehaviour
     }
 
     private void Update() {
-        float xboxA = Input.GetAxis(XBOXInput.xboxA);
-        if (xboxA > XBOXInput.detectionThreshold && gameOverAnim.isAnimOver) {
+        if (Input.GetButtonDown(XBOXInput.xboxA) && gameOverAnim.isAnimOver) {
             gameOverAnim.isAnimOver = false;
             restartBtn.onClick.Invoke();
         }
 
-        float xboxB = Input.GetAxis(XBOXInput.xboxB);
-        if (xboxB > XBOXInput.detectionThreshold && gameOverAnim.isAnimOver) {
+        if (Input.GetButtonDown(XBOXInput.xboxB) && gameOverAnim.isAnimOver) {
             gameOverAnim.isAnimOver = false;
             exitBtn.onClick.Invoke();
         }
