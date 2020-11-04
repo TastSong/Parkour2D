@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Anim\AnimMan.cs" />
     <Compile Include="Assets\Scripts\Anim\CircularRingAnim.cs" />
     <Compile Include="Assets\Scripts\Anim\GameOverAnim.cs" />
+    <Compile Include="Assets\Scripts\Anim\PlayParticleEffectAnim.cs" />
     <Compile Include="Assets\Scripts\Anim\RotateAnim.cs" />
     <Compile Include="Assets\Scripts\Anim\SequenceFrameAnim.cs" />
     <Compile Include="Assets\Scripts\Anim\SettingsAnim.cs" />
