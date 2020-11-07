@@ -1,11 +1,15 @@
 fileFormatVersion: 2
 guid: e9c197daf0def4a4d9161768a55b1d6d
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: MusicIco_0
-    21300002: MusicIco_1
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: MusicIco_0
+  - first:
+      213: 21300002
+    second: MusicIco_1
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -59,8 +63,9 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  applyGammaDecoding: 1
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -71,6 +76,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -90,6 +96,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 346c42c2f4bcd764bbe359fa80313db7
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -110,6 +117,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 46fae3256a7e6ae42ad12ce513924b2e
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -118,10 +126,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 9896a355b530fd34e86d2d1431cfa9af
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
