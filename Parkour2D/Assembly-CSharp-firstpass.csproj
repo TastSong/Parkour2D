@@ -69,6 +69,23 @@
     <Compile Include="Assets\Plugins\DOTween\Modules\DOTweenModuleUI.cs" />
     <Compile Include="Assets\Plugins\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Plugins\DOTween\Modules\DOTweenModuleUtils.cs" />
+    <Compile Include="Assets\Plugins\EpicToonFX\Demo\ParticleEffectsShowcase\Scripts\PEButtonScript.cs" />
+    <Compile Include="Assets\Plugins\EpicToonFX\Demo\ParticleEffectsShowcase\Scripts\PEDestoryTimed.cs" />
+    <Compile Include="Assets\Plugins\EpicToonFX\Demo\ParticleEffectsShowcase\Scripts\ParticleEffectsLibrary.cs" />
+    <Compile Include="Assets\Plugins\EpicToonFX\Demo\ParticleEffectsShowcase\Scripts\UICanvasManager.cs" />
+    <Compile Include="Assets\Plugins\EpicToonFX\Demo\Scripts\ETFXButtonScript.cs" />
+    <Compile Include="Assets\Plugins\EpicToonFX\Demo\Scripts\ETFXFireProjectile.cs" />
+    <Compile Include="Assets\Plugins\EpicToonFX\Demo\Scripts\ETFXLoopScript.cs" />
+    <Compile Include="Assets\Plugins\EpicToonFX\Demo\Scripts\ETFXMouseOrbit.cs" />
+    <Compile Include="Assets\Plugins\EpicToonFX\Demo\Scripts\ETFXProjectileScript.cs" />
+    <Compile Include="Assets\Plugins\EpicToonFX\Demo\Scripts\ETFXSceneManager.cs" />
+    <Compile Include="Assets\Plugins\EpicToonFX\Scripts\ETFXLightFade.cs" />
+    <Compile Include="Assets\Plugins\EpicToonFX\Scripts\ETFXPitchRandomizer.cs" />
+    <Compile Include="Assets\Plugins\EpicToonFX\Scripts\ETFXRotation.cs" />
+    <None Include="Assets\Plugins\EpicToonFX\Prefabs\Environment\Environment FX.txt" />
+    <None Include="Assets\Plugins\EpicToonFX\Prefabs\Combat\Combat FX.txt" />
+    <None Include="Assets\Plugins\EpicToonFX\ETFX Readme.txt" />
+    <None Include="Assets\Plugins\EpicToonFX\Prefabs\Interactive\Interactive FX.txt" />
     <None Include="Assets\Plugins\DOTween\readme.txt" />
     <Reference Include="UnityEngine">
       <HintPath>D:/Program Files/Unity/Hub/Editor/2019.4.14f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
