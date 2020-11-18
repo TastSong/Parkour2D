@@ -62,6 +62,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Plug\EpicToonFX\Demo\ParticleEffectsShowcase\Scripts\PEButtonScript.cs" />
+    <Compile Include="Assets\Plug\EpicToonFX\Demo\ParticleEffectsShowcase\Scripts\PEDestoryTimed.cs" />
+    <Compile Include="Assets\Plug\EpicToonFX\Demo\ParticleEffectsShowcase\Scripts\ParticleEffectsLibrary.cs" />
+    <Compile Include="Assets\Plug\EpicToonFX\Demo\ParticleEffectsShowcase\Scripts\UICanvasManager.cs" />
+    <Compile Include="Assets\Plug\EpicToonFX\Demo\Scripts\ETFXButtonScript.cs" />
+    <Compile Include="Assets\Plug\EpicToonFX\Demo\Scripts\ETFXFireProjectile.cs" />
+    <Compile Include="Assets\Plug\EpicToonFX\Demo\Scripts\ETFXLoopScript.cs" />
+    <Compile Include="Assets\Plug\EpicToonFX\Demo\Scripts\ETFXMouseOrbit.cs" />
+    <Compile Include="Assets\Plug\EpicToonFX\Demo\Scripts\ETFXProjectileScript.cs" />
+    <Compile Include="Assets\Plug\EpicToonFX\Demo\Scripts\ETFXSceneManager.cs" />
+    <Compile Include="Assets\Plug\EpicToonFX\Scripts\ETFXLightFade.cs" />
+    <Compile Include="Assets\Plug\EpicToonFX\Scripts\ETFXPitchRandomizer.cs" />
+    <Compile Include="Assets\Plug\EpicToonFX\Scripts\ETFXRotation.cs" />
     <Compile Include="Assets\Scripts\Anim\AnimMan.cs" />
     <Compile Include="Assets\Scripts\Anim\CircularRingAnim.cs" />
     <Compile Include="Assets\Scripts\Anim\GameOverAnim.cs" />
@@ -87,9 +100,13 @@
     <Compile Include="Assets\Scripts\Game\UIManager.cs" />
     <Compile Include="Assets\Scripts\Login\LoginUI.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerCtr.cs" />
+    <None Include="Assets\Plug\EpicToonFX\Prefabs\Environment\Environment FX.txt" />
+    <None Include="Assets\Plug\EpicToonFX\Prefabs\Combat\Combat FX.txt" />
     <None Include="Assets\Shader\CircularProgress.shader" />
     <None Include="Assets\Shader\CircleSeletor.shader" />
     <None Include="Assets\Shader\CircularRing.shader" />
+    <None Include="Assets\Plug\EpicToonFX\ETFX Readme.txt" />
+    <None Include="Assets\Plug\EpicToonFX\Prefabs\Interactive\Interactive FX.txt" />
     <Reference Include="UnityEngine">
       <HintPath>D:/Program Files/Unity/Hub/Editor/2019.4.14f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
