@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GameOverUI : MonoBehaviour
@@ -27,14 +28,15 @@ public class GameOverUI : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetButtonDown(XBOXInput.xboxA) && gameOverAnim.isAnimOver) {
-            gameOverAnim.isAnimOver = false;
-            restartBtn.onClick.Invoke();
-        }
-
-        if (Input.GetButtonDown(XBOXInput.xboxB) && gameOverAnim.isAnimOver) {
-            gameOverAnim.isAnimOver = false;
-            exitBtn.onClick.Invoke();
-        }
+        var gamepad = Gamepad.current;
+        if (gamepad != null) {
+            if (gamepad.aButton.wasPressedThisFrame && gameOverAnim.isAnimOver) {
+                gameOverAnim.isAnimOver = false;
+                restartBtn.onClick.Invoke();
+            } else if (gamepad.bButton.wasPressedThisFrame) {
+                gameOverAnim.isAnimOver = false;
+                exitBtn.onClick.Invoke();
+            }
+        }      
     }
 }

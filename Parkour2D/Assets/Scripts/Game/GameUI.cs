@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 // Game场景UI显示
@@ -21,10 +22,8 @@ public class GameUI : MonoBehaviour {
     public GamePauseUI gamePauseUI;
 
     private float gameTimer;
-    private float checkConnectXboxTimer;
 
     private void OnEnable() {
-        checkConnectXboxTimer = 60;
         xboxImage.gameObject.SetActiveFast(false);
         StartCoroutine(CheckConnectXBOX());
         InitUI();
@@ -60,9 +59,12 @@ public class GameUI : MonoBehaviour {
         scoreText.text = GameController.manager.score.ToString();
         SetGameTime();
 
-        if (Input.GetButtonDown(XBOXInput.xboxY)) {
-            pauseBtn.onClick.Invoke();
-        }
+        var gamepad = Gamepad.current;
+        if (gamepad != null) {
+            if (gamepad.yButton.wasPressedThisFrame) {
+                pauseBtn.onClick.Invoke();
+            }           
+        }      
     }
 
     private void SetGameTime() {
@@ -110,13 +112,11 @@ public class GameUI : MonoBehaviour {
     }
 
     private IEnumerator CheckConnectXBOX() {       
-        while (checkConnectXboxTimer > 0) {          
-            if (GameController.manager.isConnectXbox) {
-                xboxImage.gameObject.SetActiveFast(true);
-                break;
-            }
-            checkConnectXboxTimer -= Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+        while (true) {
+            xboxImage.gameObject.SetActiveFast(GameController.manager.isConnectXbox);
+            jumpBtn.gameObject.SetActiveFast(!GameController.manager.isConnectXbox);
+            attackBtn.gameObject.SetActiveFast(!GameController.manager.isConnectXbox);
+            yield return new WaitForSeconds(1f);
         }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.InputSystem;
 
 public class LoginUI : MonoBehaviour {
     public Button startBtn;
@@ -31,10 +32,14 @@ public class LoginUI : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetButtonDown(XBOXInput.xboxA) && !isStart) {
-            startBtn.onClick.Invoke();
-            isStart = true;
+        var gamepad = Gamepad.current;
+        if (gamepad != null) {
+            if (gamepad.aButton.wasPressedThisFrame && !isStart) {
+                startBtn.onClick.Invoke();
+                isStart = true;
+            }
         }
+
         if (asyncOp != null) {
             //获取加载进度,此处特别注意:加载场景的progress值最大为0.9
             loadProgress = asyncOp.progress;

@@ -18,9 +18,6 @@ public class PlayerCtr : MonoBehaviour {
     private Vector3 playerFlyPos;
     private bool isPause = false;
     private bool isFly = false;
-    private float jumpOffsetTime = 0.2f;
-    private float jumpOffsetTimer;
-    private bool isFirstJumpStart = false;
     private bool isCanSecondJump = false;
     private int enemyReward = 3;
 
@@ -38,57 +35,71 @@ public class PlayerCtr : MonoBehaviour {
         swordSpace.SetActiveFast(false);
         playerBornPos = new Vector3(transform.position.x, 0, transform.position.z);
         playerFlyPos = playerBornPos + new Vector3(0, 0.6f, 0);
-        jumpOffsetTimer = jumpOffsetTime;
     }
 
     private void Update() {
-        var gamepad = Gamepad.current;
-        if (gamepad == null) {
-            Debug.Log("未连接手柄");
+        var gamepad = Gamepad.current; 
+        if (gamepad != null) {
+            GameController.manager.isConnectXbox = true;
+            ConnectXBox(gamepad);
         } else {
-            if (gamepad.leftTrigger.ReadValue() > 0.5f) {
-                Debug.Log("11111111111112gamepad.leftTrigger.ReadValue()");
-            } else if (gamepad.leftStickButton.ReadValue() > 0.5f) {
-                Debug.Log("22222222222gamepad.leftStickButton.ReadValue()");
-            } else if (gamepad.leftShoulder.ReadValue() > 0.5f) {
-                Debug.Log("33333333333gamepad.leftShoulder.ReadValue()");
-            } else if (gamepad.leftShoulder.wasPressedThisFrame) {
-                Debug.Log("4444444444444gamepad.leftShoulder.wasPressedThisFrame");
-            } else if (gamepad.leftShoulder.wasPressedThisFrame) {
-                Debug.Log("55555555555gamepad.leftShoulder.wasPressedThisFrame");
-            } else if (gamepad.leftShoulder.wasPressedThisFrame) {
-                Debug.Log("666666666gamepad.leftShoulder.wasPressedThisFrame");
-            }
-            Debug.Log("------------------------");
-            if (gamepad.aButton.wasPressedThisFrame) {
-                Debug.Log("按下B键");
-            }
+            GameController.manager.isConnectXbox = false;
+            DisconnectXBox();
         }
+    }
+
+    private void DisconnectXBox() {
         // --------------------- 二连跳 第一跳 ---------------------
-        if ((Input.GetAxisRaw(XBOXInput.xboxLRT) == 1 || UIManager.manager.gameUI.isJump) &&
-            isOnGround && !AnimMan.manager.isPlayerDead && !isFly) {
+        if (UIManager.manager.gameUI.isJump && isOnGround && !AnimMan.manager.isPlayerDead && !isFly) {
             PlayerJump();
             isOnGround = false;
-            isFirstJumpStart = true;
+            isCanSecondJump = true;
         }
 
         if (isOnGround) {
-            isFirstJumpStart = false;
-            jumpOffsetTimer = jumpOffsetTime;
             isCanSecondJump = false;
         }
-        // 由于xbox的输入的连续性问题，所以要用计时器隔开两次输入 第二跳
-        if (isFirstJumpStart) {
-            jumpOffsetTimer -= Time.deltaTime;
-            if (jumpOffsetTimer < 0) {
-                isFirstJumpStart = false;
-                jumpOffsetTimer = jumpOffsetTime;
-                isCanSecondJump = true;
-            } else {
-                isCanSecondJump = false;
-            }
+
+        if (UIManager.manager.gameUI.isJump && isCanSecondJump && !AnimMan.manager.isPlayerDead && !isFly) {
+            PlayerJump();
+            isCanSecondJump = false;
         }
-        if ((Input.GetAxisRaw(XBOXInput.xboxLRT) == 1 || UIManager.manager.gameUI.isJump) &&
+
+        if (AnimMan.manager.isPlayerJump && isOnGround) {
+            AnimMan.manager.isPlayerJump = false;
+        }
+        //  --------------------- end ---------------------
+
+        // --------------------- 攻击 ---------------------
+        if (UIManager.manager.gameUI.isAttack && !AnimMan.manager.isPlayerAttack && !AnimMan.manager.isPlayerDead) {
+            AnimMan.manager.isPlayerAttack = true;
+            swordSpace.SetActiveFast(true);
+            AudioMan.manager.PlayPlayerAttackAudio();
+            UIManager.manager.gameUI.isAttack = false;
+        }
+        if (swordSpace.activeSelf && !AnimMan.manager.isPlayerAttack) {
+            swordSpace.SetActiveFast(false);
+        }
+        // --------------------- end ---------------------
+    }
+
+    private void ConnectXBox(Gamepad gamepad) {
+        // --------------------- 二连跳 第一跳 ---------------------
+        if ((gamepad.rightTrigger.wasPressedThisFrame || UIManager.manager.gameUI.isJump) && 
+            isOnGround && !AnimMan.manager.isPlayerDead && !isFly) {
+            PlayerJump();
+            isOnGround = false;           
+        }
+
+        if (gamepad.rightTrigger.wasReleasedThisFrame) {
+            isCanSecondJump = true;
+        }
+
+        if (isOnGround) {
+            isCanSecondJump = false;
+        }
+
+        if ((gamepad.rightTrigger.wasPressedThisFrame || UIManager.manager.gameUI.isJump) &&
             isCanSecondJump && !AnimMan.manager.isPlayerDead && !isFly) {
             PlayerJump();
             isCanSecondJump = false;
@@ -100,7 +111,7 @@ public class PlayerCtr : MonoBehaviour {
         //  --------------------- end ---------------------
 
         // --------------------- 攻击 ---------------------
-        if ((Input.GetButtonDown(XBOXInput.xboxA) || UIManager.manager.gameUI.isAttack) &&
+        if ((gamepad.aButton.wasPressedThisFrame || UIManager.manager.gameUI.isAttack) &&
             !AnimMan.manager.isPlayerAttack && !AnimMan.manager.isPlayerDead) {
             AnimMan.manager.isPlayerAttack = true;
             swordSpace.SetActiveFast(true);
@@ -111,12 +122,6 @@ public class PlayerCtr : MonoBehaviour {
             swordSpace.SetActiveFast(false);
         }
         // --------------------- end ---------------------
-
-        // 检测Xbox是否连接
-        if (!GameController.manager.isConnectXbox && 
-            (Input.GetAxisRaw(XBOXInput.xboxLRT) == 1 || Input.GetButtonDown(XBOXInput.xboxA))) {
-            GameController.manager.isConnectXbox = true;
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
