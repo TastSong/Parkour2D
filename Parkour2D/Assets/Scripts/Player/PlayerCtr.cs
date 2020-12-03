@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 // 人物移动 碰撞检测
 public class PlayerCtr : MonoBehaviour {
     public static PlayerCtr manager = null;
@@ -41,7 +42,29 @@ public class PlayerCtr : MonoBehaviour {
     }
 
     private void Update() {
-       // --------------------- 二连跳 第一跳 ---------------------
+        var gamepad = Gamepad.current;
+        if (gamepad == null) {
+            Debug.Log("未连接手柄");
+        } else {
+            if (gamepad.leftTrigger.ReadValue() > 0.5f) {
+                Debug.Log("11111111111112gamepad.leftTrigger.ReadValue()");
+            } else if (gamepad.leftStickButton.ReadValue() > 0.5f) {
+                Debug.Log("22222222222gamepad.leftStickButton.ReadValue()");
+            } else if (gamepad.leftShoulder.ReadValue() > 0.5f) {
+                Debug.Log("33333333333gamepad.leftShoulder.ReadValue()");
+            } else if (gamepad.leftShoulder.wasPressedThisFrame) {
+                Debug.Log("4444444444444gamepad.leftShoulder.wasPressedThisFrame");
+            } else if (gamepad.leftShoulder.wasPressedThisFrame) {
+                Debug.Log("55555555555gamepad.leftShoulder.wasPressedThisFrame");
+            } else if (gamepad.leftShoulder.wasPressedThisFrame) {
+                Debug.Log("666666666gamepad.leftShoulder.wasPressedThisFrame");
+            }
+            Debug.Log("------------------------");
+            if (gamepad.aButton.wasPressedThisFrame) {
+                Debug.Log("按下B键");
+            }
+        }
+        // --------------------- 二连跳 第一跳 ---------------------
         if ((Input.GetAxisRaw(XBOXInput.xboxLRT) == 1 || UIManager.manager.gameUI.isJump) &&
             isOnGround && !AnimMan.manager.isPlayerDead && !isFly) {
             PlayerJump();
